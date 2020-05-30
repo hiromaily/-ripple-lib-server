@@ -1,0 +1,28 @@
+{
+  "name": "ripple-lib-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "yarn ts-node src/server.ts",
+    "dev:watch": "ts-node-dev --respawn src/server.ts"
+  },
+  "author": "HirokiYasui <hiromaily2@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/google-protobuf": "^3.7.2",
+    "@types/node": "^14.0.5",
+    "grpc-tools": "^1.9.0",
+    "grpc_tools_node_protoc_ts": "^4.0.0",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "google-protobuf": "^3.12.2",
+    "grpc": "^1.24.2",
+    "ripple-lib": "^1.7.1"
+  }
+}
