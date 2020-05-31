@@ -57,7 +57,26 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
       callback(null, res);
     })
   }
-}
+
+  signTransaction = (
+    call: grpc.ServerUnaryCall<rippleapi_pb.RequestSign>,
+    callback: grpc.sendUnaryData<rippleapi_pb.ResponseSign>,
+  ) : void => {
+    console.log("[signTransaction] is called");
+  
+    // call API
+    const signed = this.rippleAPI.sign(call.request.getTxjson(), call.request.getSecret());
+    console.log("txID: Identifying hash:", signed.id);
+    console.log("txBlob: Signed blob:", signed.signedTransaction);
+  
+    // response
+    const res = new rippleapi_pb.ResponseSign();
+    res.setTxid(signed.id);
+    res.setTxblob(signed.signedTransaction);
+    callback(null, res);
+  }
+  
+};
 
 export default {
   service: rippleapi_grpc_pb.RippleAPIService,  // Service interface
