@@ -15,15 +15,26 @@ function deserialize_rippleapi_RequestPrepareTransaction(buffer_arg) {
   return proto_rippleapi_rippleapi_pb.RequestPrepareTransaction.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_rippleapi_RequestSign(arg) {
-  if (!(arg instanceof proto_rippleapi_rippleapi_pb.RequestSign)) {
-    throw new Error('Expected argument of type rippleapi.RequestSign');
+function serialize_rippleapi_RequestSignTransaction(arg) {
+  if (!(arg instanceof proto_rippleapi_rippleapi_pb.RequestSignTransaction)) {
+    throw new Error('Expected argument of type rippleapi.RequestSignTransaction');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_rippleapi_RequestSign(buffer_arg) {
-  return proto_rippleapi_rippleapi_pb.RequestSign.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_rippleapi_RequestSignTransaction(buffer_arg) {
+  return proto_rippleapi_rippleapi_pb.RequestSignTransaction.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_rippleapi_RequestSubmitTransaction(arg) {
+  if (!(arg instanceof proto_rippleapi_rippleapi_pb.RequestSubmitTransaction)) {
+    throw new Error('Expected argument of type rippleapi.RequestSubmitTransaction');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_rippleapi_RequestSubmitTransaction(buffer_arg) {
+  return proto_rippleapi_rippleapi_pb.RequestSubmitTransaction.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_rippleapi_ResponsePrepareTransaction(arg) {
@@ -37,15 +48,26 @@ function deserialize_rippleapi_ResponsePrepareTransaction(buffer_arg) {
   return proto_rippleapi_rippleapi_pb.ResponsePrepareTransaction.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_rippleapi_ResponseSign(arg) {
-  if (!(arg instanceof proto_rippleapi_rippleapi_pb.ResponseSign)) {
-    throw new Error('Expected argument of type rippleapi.ResponseSign');
+function serialize_rippleapi_ResponseSignTransaction(arg) {
+  if (!(arg instanceof proto_rippleapi_rippleapi_pb.ResponseSignTransaction)) {
+    throw new Error('Expected argument of type rippleapi.ResponseSignTransaction');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_rippleapi_ResponseSign(buffer_arg) {
-  return proto_rippleapi_rippleapi_pb.ResponseSign.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_rippleapi_ResponseSignTransaction(buffer_arg) {
+  return proto_rippleapi_rippleapi_pb.ResponseSignTransaction.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_rippleapi_ResponseSubmitTransaction(arg) {
+  if (!(arg instanceof proto_rippleapi_rippleapi_pb.ResponseSubmitTransaction)) {
+    throw new Error('Expected argument of type rippleapi.ResponseSubmitTransaction');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_rippleapi_ResponseSubmitTransaction(buffer_arg) {
+  return proto_rippleapi_rippleapi_pb.ResponseSubmitTransaction.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 
@@ -67,12 +89,23 @@ prepareTransaction: {
     path: '/rippleapi.RippleAPI/SignTransaction',
     requestStream: false,
     responseStream: false,
-    requestType: proto_rippleapi_rippleapi_pb.RequestSign,
-    responseType: proto_rippleapi_rippleapi_pb.ResponseSign,
-    requestSerialize: serialize_rippleapi_RequestSign,
-    requestDeserialize: deserialize_rippleapi_RequestSign,
-    responseSerialize: serialize_rippleapi_ResponseSign,
-    responseDeserialize: deserialize_rippleapi_ResponseSign,
+    requestType: proto_rippleapi_rippleapi_pb.RequestSignTransaction,
+    responseType: proto_rippleapi_rippleapi_pb.ResponseSignTransaction,
+    requestSerialize: serialize_rippleapi_RequestSignTransaction,
+    requestDeserialize: deserialize_rippleapi_RequestSignTransaction,
+    responseSerialize: serialize_rippleapi_ResponseSignTransaction,
+    responseDeserialize: deserialize_rippleapi_ResponseSignTransaction,
+  },
+  submitTransaction: {
+    path: '/rippleapi.RippleAPI/SubmitTransaction',
+    requestStream: false,
+    responseStream: false,
+    requestType: proto_rippleapi_rippleapi_pb.RequestSubmitTransaction,
+    responseType: proto_rippleapi_rippleapi_pb.ResponseSubmitTransaction,
+    requestSerialize: serialize_rippleapi_RequestSubmitTransaction,
+    requestDeserialize: deserialize_rippleapi_RequestSubmitTransaction,
+    responseSerialize: serialize_rippleapi_ResponseSubmitTransaction,
+    responseDeserialize: deserialize_rippleapi_ResponseSubmitTransaction,
   },
 };
 

@@ -14,6 +14,10 @@ interface transaction {
   Destination: string;
 }
 
+interface resSubmitTransaction{
+  resJSON: any;
+  latestLedgerVersion: number;
+}
 
 class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
   private rippleAPI: ripple.RippleAPI;
@@ -40,6 +44,19 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     return preparedTx.txJSON;
   }
 
+  private async _submitTransaction(call: grpc.ServerUnaryCall<rippleapi_pb.RequestSubmitTransaction>) : Promise<resSubmitTransaction> {
+    console.log("_submitTransaction()");
+
+    const latestLedgerVersion = await this.rippleAPI.getLedgerVersion();
+    const txBlob = call.request.getTxblob();
+    const resJSON = await this.rippleAPI.submit(txBlob);
+    console.log("Tentative result code:", resJSON.resultCode);
+    console.log("Tentative result message:", resJSON.resultMessage);  
+    
+    return { resJSON: resJSON, latestLedgerVersion: latestLedgerVersion + 1 };
+  }
+
+  // prepareTransaction handler
   prepareTransaction = (
     call: grpc.ServerUnaryCall<rippleapi_pb.RequestPrepareTransaction>,
     callback: grpc.sendUnaryData<rippleapi_pb.ResponsePrepareTransaction>,
@@ -58,9 +75,10 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     })
   }
 
+  // signTransaction handler
   signTransaction = (
-    call: grpc.ServerUnaryCall<rippleapi_pb.RequestSign>,
-    callback: grpc.sendUnaryData<rippleapi_pb.ResponseSign>,
+    call: grpc.ServerUnaryCall<rippleapi_pb.RequestSignTransaction>,
+    callback: grpc.sendUnaryData<rippleapi_pb.ResponseSignTransaction>,
   ) : void => {
     console.log("[signTransaction] is called");
   
@@ -70,10 +88,31 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     console.log("txBlob: Signed blob:", signed.signedTransaction);
   
     // response
-    const res = new rippleapi_pb.ResponseSign();
+    const res = new rippleapi_pb.ResponseSignTransaction();
     res.setTxid(signed.id);
     res.setTxblob(signed.signedTransaction);
     callback(null, res);
+  }
+
+  // submitTransaction handler
+  submitTransaction = (
+    call: grpc.ServerUnaryCall<rippleapi_pb.RequestSubmitTransaction>,
+    callback: grpc.sendUnaryData<rippleapi_pb.ResponseSubmitTransaction>,
+  ) : void => {
+    console.log("[submitTransaction] is called");
+
+    // call API as async
+    this._submitTransaction(call).then(resAPI => {
+      const resJSON = JSON.stringify(resAPI.resJSON);
+      console.log("resJSON", resJSON);
+      console.log("latestLedgerVersion", resAPI.latestLedgerVersion);
+
+      // response
+      const res = new rippleapi_pb.ResponseSubmitTransaction();
+      res.setResultjsonstring(resJSON);
+      res.setLatestledgerversion(resAPI.latestLedgerVersion);
+      callback(null, res);
+    })
   }
   
 };

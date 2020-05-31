@@ -115,53 +115,99 @@ export namespace ResponsePrepareTransaction {
     }
 }
 
-export class RequestSign extends jspb.Message { 
+export class RequestSignTransaction extends jspb.Message { 
     getTxjson(): string;
-    setTxjson(value: string): RequestSign;
+    setTxjson(value: string): RequestSignTransaction;
 
     getSecret(): string;
-    setSecret(value: string): RequestSign;
+    setSecret(value: string): RequestSignTransaction;
 
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): RequestSign.AsObject;
-    static toObject(includeInstance: boolean, msg: RequestSign): RequestSign.AsObject;
+    toObject(includeInstance?: boolean): RequestSignTransaction.AsObject;
+    static toObject(includeInstance: boolean, msg: RequestSignTransaction): RequestSignTransaction.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: RequestSign, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): RequestSign;
-    static deserializeBinaryFromReader(message: RequestSign, reader: jspb.BinaryReader): RequestSign;
+    static serializeBinaryToWriter(message: RequestSignTransaction, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RequestSignTransaction;
+    static deserializeBinaryFromReader(message: RequestSignTransaction, reader: jspb.BinaryReader): RequestSignTransaction;
 }
 
-export namespace RequestSign {
+export namespace RequestSignTransaction {
     export type AsObject = {
         txjson: string,
         secret: string,
     }
 }
 
-export class ResponseSign extends jspb.Message { 
+export class ResponseSignTransaction extends jspb.Message { 
     getTxid(): string;
-    setTxid(value: string): ResponseSign;
+    setTxid(value: string): ResponseSignTransaction;
 
     getTxblob(): string;
-    setTxblob(value: string): ResponseSign;
+    setTxblob(value: string): ResponseSignTransaction;
 
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): ResponseSign.AsObject;
-    static toObject(includeInstance: boolean, msg: ResponseSign): ResponseSign.AsObject;
+    toObject(includeInstance?: boolean): ResponseSignTransaction.AsObject;
+    static toObject(includeInstance: boolean, msg: ResponseSignTransaction): ResponseSignTransaction.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: ResponseSign, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): ResponseSign;
-    static deserializeBinaryFromReader(message: ResponseSign, reader: jspb.BinaryReader): ResponseSign;
+    static serializeBinaryToWriter(message: ResponseSignTransaction, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ResponseSignTransaction;
+    static deserializeBinaryFromReader(message: ResponseSignTransaction, reader: jspb.BinaryReader): ResponseSignTransaction;
 }
 
-export namespace ResponseSign {
+export namespace ResponseSignTransaction {
     export type AsObject = {
         txid: string,
         txblob: string,
+    }
+}
+
+export class RequestSubmitTransaction extends jspb.Message { 
+    getTxblob(): string;
+    setTxblob(value: string): RequestSubmitTransaction;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): RequestSubmitTransaction.AsObject;
+    static toObject(includeInstance: boolean, msg: RequestSubmitTransaction): RequestSubmitTransaction.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: RequestSubmitTransaction, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RequestSubmitTransaction;
+    static deserializeBinaryFromReader(message: RequestSubmitTransaction, reader: jspb.BinaryReader): RequestSubmitTransaction;
+}
+
+export namespace RequestSubmitTransaction {
+    export type AsObject = {
+        txblob: string,
+    }
+}
+
+export class ResponseSubmitTransaction extends jspb.Message { 
+    getResultjsonstring(): string;
+    setResultjsonstring(value: string): ResponseSubmitTransaction;
+
+    getLatestledgerversion(): number;
+    setLatestledgerversion(value: number): ResponseSubmitTransaction;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ResponseSubmitTransaction.AsObject;
+    static toObject(includeInstance: boolean, msg: ResponseSubmitTransaction): ResponseSubmitTransaction.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ResponseSubmitTransaction, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ResponseSubmitTransaction;
+    static deserializeBinaryFromReader(message: ResponseSubmitTransaction, reader: jspb.BinaryReader): ResponseSubmitTransaction;
+}
+
+export namespace ResponseSubmitTransaction {
+    export type AsObject = {
+        resultjsonstring: string,
+        latestledgerversion: number,
     }
 }
 
