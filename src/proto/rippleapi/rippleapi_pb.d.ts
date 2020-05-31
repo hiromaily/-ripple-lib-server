@@ -213,8 +213,8 @@ export namespace ResponseSubmitTransaction {
 }
 
 export class ResponseWaitValidation extends jspb.Message { 
-    getCurrentledgerversion(): number;
-    setCurrentledgerversion(value: number): ResponseWaitValidation;
+    getLedgerversion(): number;
+    setLedgerversion(value: number): ResponseWaitValidation;
 
 
     serializeBinary(): Uint8Array;
@@ -229,7 +229,7 @@ export class ResponseWaitValidation extends jspb.Message {
 
 export namespace ResponseWaitValidation {
     export type AsObject = {
-        currentledgerversion: number,
+        ledgerversion: number,
     }
 }
 

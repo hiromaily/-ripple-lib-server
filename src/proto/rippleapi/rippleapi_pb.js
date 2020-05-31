@@ -1565,7 +1565,7 @@ proto.rippleapi.ResponseWaitValidation.prototype.toObject = function(opt_include
  */
 proto.rippleapi.ResponseWaitValidation.toObject = function(includeInstance, msg) {
   var f, obj = {
-    currentledgerversion: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    ledgerversion: jspb.Message.getFieldWithDefault(msg, 1, 0)
   };
 
   if (includeInstance) {
@@ -1604,7 +1604,7 @@ proto.rippleapi.ResponseWaitValidation.deserializeBinaryFromReader = function(ms
     switch (field) {
     case 1:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setCurrentledgerversion(value);
+      msg.setLedgerversion(value);
       break;
     default:
       reader.skipField();
@@ -1635,7 +1635,7 @@ proto.rippleapi.ResponseWaitValidation.prototype.serializeBinary = function() {
  */
 proto.rippleapi.ResponseWaitValidation.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getCurrentledgerversion();
+  f = message.getLedgerversion();
   if (f !== 0) {
     writer.writeUint32(
       1,
@@ -1646,10 +1646,10 @@ proto.rippleapi.ResponseWaitValidation.serializeBinaryToWriter = function(messag
 
 
 /**
- * optional uint32 currentLedgerVersion = 1;
+ * optional uint32 ledgerVersion = 1;
  * @return {number}
  */
-proto.rippleapi.ResponseWaitValidation.prototype.getCurrentledgerversion = function() {
+proto.rippleapi.ResponseWaitValidation.prototype.getLedgerversion = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
@@ -1658,7 +1658,7 @@ proto.rippleapi.ResponseWaitValidation.prototype.getCurrentledgerversion = funct
  * @param {number} value
  * @return {!proto.rippleapi.ResponseWaitValidation} returns this
  */
-proto.rippleapi.ResponseWaitValidation.prototype.setCurrentledgerversion = function(value) {
+proto.rippleapi.ResponseWaitValidation.prototype.setLedgerversion = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
 };
 

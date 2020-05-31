@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import * as grpc from 'grpc';
 import * as ripple from 'ripple-lib';
 import * as rippleapi_grpc_pb from '../proto/rippleapi/rippleapi_grpc_pb';
@@ -16,7 +17,7 @@ interface transaction {
 
 interface resSubmitTransaction{
   resJSON: any;
-  latestLedgerVersion: number;
+  earlistLedgerVersion: number;
 }
 
 class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
@@ -53,7 +54,7 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     console.log("Tentative result code:", resJSON.resultCode);
     console.log("Tentative result message:", resJSON.resultMessage);  
     
-    return { resJSON: resJSON, latestLedgerVersion: latestLedgerVersion + 1 };
+    return { resJSON: resJSON, earlistLedgerVersion: latestLedgerVersion + 1 };
   }
 
   // prepareTransaction handler
@@ -105,16 +106,40 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     this._submitTransaction(call).then(resAPI => {
       const resJSON = JSON.stringify(resAPI.resJSON);
       console.log("resJSON", resJSON);
-      console.log("latestLedgerVersion", resAPI.latestLedgerVersion);
+      console.log("earlistLedgerVersion", resAPI.earlistLedgerVersion);
 
       // response
       const res = new rippleapi_pb.ResponseSubmitTransaction();
       res.setResultjsonstring(resJSON);
-      res.setLatestledgerversion(resAPI.latestLedgerVersion);
+      res.setEarliestledgerversion(resAPI.earlistLedgerVersion);
       callback(null, res);
     })
   }
-  
+
+  // waitValidation as server streaming
+  waitValidation = (call: grpc.ServerWritableStream<Empty>,
+  ) : void => {
+    console.log("[waitValidation] is called");
+
+    const ledgerHandler = (ledger: any) => {
+      console.log("Ledger version", ledger.ledgerVersion, "was just validated.");
+      call.write(ledger.ledgerVersion);
+    }
+    this.rippleAPI.on('ledger', ledgerHandler);
+    // this.rippleAPI.on('ledger', ledger => {
+    //   console.log("Ledger version", ledger.ledgerVersion, "was just validated.");
+    //   // if (ledger.ledgerVersion > maxLedgerVersion) {
+    //   //   console.log("If the transaction hasn't succeeded by now, it's expired")
+    //   // }
+    //   call.write(ledger.ledgerVersion);
+    // });
+
+    // when disconnected, remove listener
+    call.on('close', () => {
+      this.rippleAPI.removeListener('ledger', ledgerHandler);
+    });
+  }
+
 };
 
 export default {
