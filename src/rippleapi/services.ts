@@ -125,7 +125,14 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     console.log("[waitValidation] is called");
 
     const ledgerHandler = (ledger: any) => {
-      console.log("Ledger version", ledger.ledgerVersion, "was just validated.");
+      if (call.cancelled) {
+        console.log("canceled");
+        call.end();
+        this.rippleAPI.removeListener('ledger', ledgerHandler);
+        return;
+      }
+
+      console.log("Ledger version", ledger.ledgerVersion, "was just validated.", call.cancelled);
       // response
       const res = new rippleapi_pb.ResponseWaitValidation();
       res.setLedgerversion(<number>ledger.ledgerVersion);
@@ -141,6 +148,7 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     // });
 
     // when disconnected, remove listener
+    // FIXME: this event is not called
     call.on('close', () => {
       console.log("[close] is called");
       call.end();
