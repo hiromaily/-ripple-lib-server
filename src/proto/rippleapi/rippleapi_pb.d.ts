@@ -115,6 +115,56 @@ export namespace ResponsePrepareTransaction {
     }
 }
 
+export class RequestSign extends jspb.Message { 
+    getTxjson(): string;
+    setTxjson(value: string): RequestSign;
+
+    getSecret(): string;
+    setSecret(value: string): RequestSign;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): RequestSign.AsObject;
+    static toObject(includeInstance: boolean, msg: RequestSign): RequestSign.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: RequestSign, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RequestSign;
+    static deserializeBinaryFromReader(message: RequestSign, reader: jspb.BinaryReader): RequestSign;
+}
+
+export namespace RequestSign {
+    export type AsObject = {
+        txjson: string,
+        secret: string,
+    }
+}
+
+export class ResponseSign extends jspb.Message { 
+    getTxid(): string;
+    setTxid(value: string): ResponseSign;
+
+    getTxblob(): string;
+    setTxblob(value: string): ResponseSign;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ResponseSign.AsObject;
+    static toObject(includeInstance: boolean, msg: ResponseSign): ResponseSign.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ResponseSign, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ResponseSign;
+    static deserializeBinaryFromReader(message: ResponseSign, reader: jspb.BinaryReader): ResponseSign;
+}
+
+export namespace ResponseSign {
+    export type AsObject = {
+        txid: string,
+        txblob: string,
+    }
+}
+
 export enum EnumTransactionType {
     TX_ACCOUNT_SET = 0,
     TX_ACCOUNT_DELETE = 1,
