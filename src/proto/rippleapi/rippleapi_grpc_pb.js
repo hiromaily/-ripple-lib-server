@@ -16,6 +16,17 @@ function deserialize_google_protobuf_Empty(buffer_arg) {
   return google_protobuf_empty_pb.Empty.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_rippleapi_RequestGetTransaction(arg) {
+  if (!(arg instanceof proto_rippleapi_rippleapi_pb.RequestGetTransaction)) {
+    throw new Error('Expected argument of type rippleapi.RequestGetTransaction');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_rippleapi_RequestGetTransaction(buffer_arg) {
+  return proto_rippleapi_rippleapi_pb.RequestGetTransaction.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_rippleapi_RequestPrepareTransaction(arg) {
   if (!(arg instanceof proto_rippleapi_rippleapi_pb.RequestPrepareTransaction)) {
     throw new Error('Expected argument of type rippleapi.RequestPrepareTransaction');
@@ -47,6 +58,17 @@ function serialize_rippleapi_RequestSubmitTransaction(arg) {
 
 function deserialize_rippleapi_RequestSubmitTransaction(buffer_arg) {
   return proto_rippleapi_rippleapi_pb.RequestSubmitTransaction.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_rippleapi_ResponseGetTransaction(arg) {
+  if (!(arg instanceof proto_rippleapi_rippleapi_pb.ResponseGetTransaction)) {
+    throw new Error('Expected argument of type rippleapi.ResponseGetTransaction');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_rippleapi_ResponseGetTransaction(buffer_arg) {
+  return proto_rippleapi_rippleapi_pb.ResponseGetTransaction.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_rippleapi_ResponsePrepareTransaction(arg) {
@@ -140,6 +162,17 @@ prepareTransaction: {
     requestDeserialize: deserialize_google_protobuf_Empty,
     responseSerialize: serialize_rippleapi_ResponseWaitValidation,
     responseDeserialize: deserialize_rippleapi_ResponseWaitValidation,
+  },
+  getTransaction: {
+    path: '/rippleapi.RippleAPI/GetTransaction',
+    requestStream: false,
+    responseStream: false,
+    requestType: proto_rippleapi_rippleapi_pb.RequestGetTransaction,
+    responseType: proto_rippleapi_rippleapi_pb.ResponseGetTransaction,
+    requestSerialize: serialize_rippleapi_RequestGetTransaction,
+    requestDeserialize: deserialize_rippleapi_RequestGetTransaction,
+    responseSerialize: serialize_rippleapi_ResponseGetTransaction,
+    responseDeserialize: deserialize_rippleapi_ResponseGetTransaction,
   },
 };
 

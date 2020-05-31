@@ -233,6 +233,48 @@ export namespace ResponseWaitValidation {
     }
 }
 
+export class RequestGetTransaction extends jspb.Message { 
+    getTxid(): string;
+    setTxid(value: string): RequestGetTransaction;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): RequestGetTransaction.AsObject;
+    static toObject(includeInstance: boolean, msg: RequestGetTransaction): RequestGetTransaction.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: RequestGetTransaction, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RequestGetTransaction;
+    static deserializeBinaryFromReader(message: RequestGetTransaction, reader: jspb.BinaryReader): RequestGetTransaction;
+}
+
+export namespace RequestGetTransaction {
+    export type AsObject = {
+        txid: string,
+    }
+}
+
+export class ResponseGetTransaction extends jspb.Message { 
+    getResultjsonstring(): string;
+    setResultjsonstring(value: string): ResponseGetTransaction;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ResponseGetTransaction.AsObject;
+    static toObject(includeInstance: boolean, msg: ResponseGetTransaction): ResponseGetTransaction.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ResponseGetTransaction, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ResponseGetTransaction;
+    static deserializeBinaryFromReader(message: ResponseGetTransaction, reader: jspb.BinaryReader): ResponseGetTransaction;
+}
+
+export namespace ResponseGetTransaction {
+    export type AsObject = {
+        resultjsonstring: string,
+    }
+}
+
 export enum EnumTransactionType {
     TX_ACCOUNT_SET = 0,
     TX_ACCOUNT_DELETE = 1,

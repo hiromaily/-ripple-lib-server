@@ -13,6 +13,7 @@ interface IRippleAPIService extends grpc.ServiceDefinition<grpc.UntypedServiceIm
     signTransaction: IRippleAPIService_ISignTransaction;
     submitTransaction: IRippleAPIService_ISubmitTransaction;
     waitValidation: IRippleAPIService_IWaitValidation;
+    getTransaction: IRippleAPIService_IGetTransaction;
 }
 
 interface IRippleAPIService_IPrepareTransaction extends grpc.MethodDefinition<proto_rippleapi_rippleapi_pb.RequestPrepareTransaction, proto_rippleapi_rippleapi_pb.ResponsePrepareTransaction> {
@@ -51,6 +52,15 @@ interface IRippleAPIService_IWaitValidation extends grpc.MethodDefinition<google
     responseSerialize: grpc.serialize<proto_rippleapi_rippleapi_pb.ResponseWaitValidation>;
     responseDeserialize: grpc.deserialize<proto_rippleapi_rippleapi_pb.ResponseWaitValidation>;
 }
+interface IRippleAPIService_IGetTransaction extends grpc.MethodDefinition<proto_rippleapi_rippleapi_pb.RequestGetTransaction, proto_rippleapi_rippleapi_pb.ResponseGetTransaction> {
+    path: string; // "/rippleapi.RippleAPI/GetTransaction"
+    requestStream: boolean; // false
+    responseStream: boolean; // false
+    requestSerialize: grpc.serialize<proto_rippleapi_rippleapi_pb.RequestGetTransaction>;
+    requestDeserialize: grpc.deserialize<proto_rippleapi_rippleapi_pb.RequestGetTransaction>;
+    responseSerialize: grpc.serialize<proto_rippleapi_rippleapi_pb.ResponseGetTransaction>;
+    responseDeserialize: grpc.deserialize<proto_rippleapi_rippleapi_pb.ResponseGetTransaction>;
+}
 
 export const RippleAPIService: IRippleAPIService;
 
@@ -59,6 +69,7 @@ export interface IRippleAPIServer {
     signTransaction: grpc.handleUnaryCall<proto_rippleapi_rippleapi_pb.RequestSignTransaction, proto_rippleapi_rippleapi_pb.ResponseSignTransaction>;
     submitTransaction: grpc.handleUnaryCall<proto_rippleapi_rippleapi_pb.RequestSubmitTransaction, proto_rippleapi_rippleapi_pb.ResponseSubmitTransaction>;
     waitValidation: grpc.handleServerStreamingCall<google_protobuf_empty_pb.Empty, proto_rippleapi_rippleapi_pb.ResponseWaitValidation>;
+    getTransaction: grpc.handleUnaryCall<proto_rippleapi_rippleapi_pb.RequestGetTransaction, proto_rippleapi_rippleapi_pb.ResponseGetTransaction>;
 }
 
 export interface IRippleAPIClient {
@@ -73,6 +84,9 @@ export interface IRippleAPIClient {
     submitTransaction(request: proto_rippleapi_rippleapi_pb.RequestSubmitTransaction, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_rippleapi_pb.ResponseSubmitTransaction) => void): grpc.ClientUnaryCall;
     waitValidation(request: google_protobuf_empty_pb.Empty, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<proto_rippleapi_rippleapi_pb.ResponseWaitValidation>;
     waitValidation(request: google_protobuf_empty_pb.Empty, metadata?: grpc.Metadata, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<proto_rippleapi_rippleapi_pb.ResponseWaitValidation>;
+    getTransaction(request: proto_rippleapi_rippleapi_pb.RequestGetTransaction, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_rippleapi_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
+    getTransaction(request: proto_rippleapi_rippleapi_pb.RequestGetTransaction, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_rippleapi_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
+    getTransaction(request: proto_rippleapi_rippleapi_pb.RequestGetTransaction, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_rippleapi_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
 }
 
 export class RippleAPIClient extends grpc.Client implements IRippleAPIClient {
@@ -88,4 +102,7 @@ export class RippleAPIClient extends grpc.Client implements IRippleAPIClient {
     public submitTransaction(request: proto_rippleapi_rippleapi_pb.RequestSubmitTransaction, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_rippleapi_pb.ResponseSubmitTransaction) => void): grpc.ClientUnaryCall;
     public waitValidation(request: google_protobuf_empty_pb.Empty, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<proto_rippleapi_rippleapi_pb.ResponseWaitValidation>;
     public waitValidation(request: google_protobuf_empty_pb.Empty, metadata?: grpc.Metadata, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<proto_rippleapi_rippleapi_pb.ResponseWaitValidation>;
+    public getTransaction(request: proto_rippleapi_rippleapi_pb.RequestGetTransaction, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_rippleapi_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
+    public getTransaction(request: proto_rippleapi_rippleapi_pb.RequestGetTransaction, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_rippleapi_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
+    public getTransaction(request: proto_rippleapi_rippleapi_pb.RequestGetTransaction, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_rippleapi_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
 }
