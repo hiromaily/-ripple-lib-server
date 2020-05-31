@@ -3,6 +3,18 @@
 'use strict';
 var grpc = require('grpc');
 var proto_rippleapi_rippleapi_pb = require('../../proto/rippleapi/rippleapi_pb.js');
+var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
+
+function serialize_google_protobuf_Empty(arg) {
+  if (!(arg instanceof google_protobuf_empty_pb.Empty)) {
+    throw new Error('Expected argument of type google.protobuf.Empty');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_google_protobuf_Empty(buffer_arg) {
+  return google_protobuf_empty_pb.Empty.deserializeBinary(new Uint8Array(buffer_arg));
+}
 
 function serialize_rippleapi_RequestPrepareTransaction(arg) {
   if (!(arg instanceof proto_rippleapi_rippleapi_pb.RequestPrepareTransaction)) {
@@ -70,6 +82,17 @@ function deserialize_rippleapi_ResponseSubmitTransaction(buffer_arg) {
   return proto_rippleapi_rippleapi_pb.ResponseSubmitTransaction.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_rippleapi_ResponseWaitValidation(arg) {
+  if (!(arg instanceof proto_rippleapi_rippleapi_pb.ResponseWaitValidation)) {
+    throw new Error('Expected argument of type rippleapi.ResponseWaitValidation');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_rippleapi_ResponseWaitValidation(buffer_arg) {
+  return proto_rippleapi_rippleapi_pb.ResponseWaitValidation.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 // RippleAPI 
 var RippleAPIService = exports.RippleAPIService = {
@@ -106,6 +129,17 @@ prepareTransaction: {
     requestDeserialize: deserialize_rippleapi_RequestSubmitTransaction,
     responseSerialize: serialize_rippleapi_ResponseSubmitTransaction,
     responseDeserialize: deserialize_rippleapi_ResponseSubmitTransaction,
+  },
+  waitValidation: {
+    path: '/rippleapi.RippleAPI/WaitValidation',
+    requestStream: false,
+    responseStream: true,
+    requestType: google_protobuf_empty_pb.Empty,
+    responseType: proto_rippleapi_rippleapi_pb.ResponseWaitValidation,
+    requestSerialize: serialize_google_protobuf_Empty,
+    requestDeserialize: deserialize_google_protobuf_Empty,
+    responseSerialize: serialize_rippleapi_ResponseWaitValidation,
+    responseDeserialize: deserialize_rippleapi_ResponseWaitValidation,
   },
 };
 

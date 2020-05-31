@@ -5,6 +5,7 @@
 /* eslint-disable */
 
 import * as jspb from "google-protobuf";
+import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 
 export class Instructions extends jspb.Message { 
     getFee(): string;
@@ -190,8 +191,8 @@ export class ResponseSubmitTransaction extends jspb.Message {
     getResultjsonstring(): string;
     setResultjsonstring(value: string): ResponseSubmitTransaction;
 
-    getLatestledgerversion(): number;
-    setLatestledgerversion(value: number): ResponseSubmitTransaction;
+    getEarliestledgerversion(): number;
+    setEarliestledgerversion(value: number): ResponseSubmitTransaction;
 
 
     serializeBinary(): Uint8Array;
@@ -207,7 +208,28 @@ export class ResponseSubmitTransaction extends jspb.Message {
 export namespace ResponseSubmitTransaction {
     export type AsObject = {
         resultjsonstring: string,
-        latestledgerversion: number,
+        earliestledgerversion: number,
+    }
+}
+
+export class ResponseWaitValidation extends jspb.Message { 
+    getCurrentledgerversion(): number;
+    setCurrentledgerversion(value: number): ResponseWaitValidation;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ResponseWaitValidation.AsObject;
+    static toObject(includeInstance: boolean, msg: ResponseWaitValidation): ResponseWaitValidation.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ResponseWaitValidation, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ResponseWaitValidation;
+    static deserializeBinaryFromReader(message: ResponseWaitValidation, reader: jspb.BinaryReader): ResponseWaitValidation;
+}
+
+export namespace ResponseWaitValidation {
+    export type AsObject = {
+        currentledgerversion: number,
     }
 }
 
