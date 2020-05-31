@@ -6,6 +6,9 @@ import * as rippleapi_grpc_pb from '../proto/rippleapi/rippleapi_grpc_pb';
 import * as rippleapi_pb from '../proto/rippleapi/rippleapi_pb';
 import { enumTransactionTypeString } from './enum';
 
+// this document may be useful
+// https://qiita.com/aanrii/items/699b4cda0babb3f47a2f
+
 const wsURL: string = process.env.RippleAPIURL || 'wss://s.altnet.rippletest.net:51233';
 
 interface transaction {
@@ -123,7 +126,10 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
 
     const ledgerHandler = (ledger: any) => {
       console.log("Ledger version", ledger.ledgerVersion, "was just validated.");
-      call.write(ledger.ledgerVersion);
+      // response
+      const res = new rippleapi_pb.ResponseWaitValidation();
+      res.setLedgerversion(<number>ledger.ledgerVersion);
+      call.write(res);
     }
     this.rippleAPI.on('ledger', ledgerHandler);
     // this.rippleAPI.on('ledger', ledger => {
@@ -136,6 +142,8 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
 
     // when disconnected, remove listener
     call.on('close', () => {
+      console.log("[close] is called");
+      call.end();
       this.rippleAPI.removeListener('ledger', ledgerHandler);
     });
   }
