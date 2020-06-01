@@ -60,6 +60,25 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     return { resJSON: resJSON, earlistLedgerVersion: latestLedgerVersion + 1 };
   }
 
+  private async _getTransaction(call: grpc.ServerUnaryCall<rippleapi_pb.RequestGetTransaction>) : Promise<string> {
+    console.log("_getTransaction()");
+
+    let txJSON: string
+    try {
+      const txID = call.request.getTxid();
+      const tx = await this.rippleAPI.getTransaction(txID);
+      console.log("Transaction result:", tx.outcome.result);
+      console.log("Balance changes:", JSON.stringify(tx.outcome.balanceChanges));
+      txJSON = JSON.stringify(tx);
+    } catch(error) {
+      console.log("Couldn't get transaction outcome:", error);
+      //MissingLedgerHistoryError: Server is missing ledger history in the specified range
+      txJSON = "";
+    }
+    
+    return txJSON;
+  }
+
   // prepareTransaction handler
   prepareTransaction = (
     call: grpc.ServerUnaryCall<rippleapi_pb.RequestPrepareTransaction>,
@@ -154,6 +173,22 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
       call.end();
       this.rippleAPI.removeListener('ledger', ledgerHandler);
     });
+  }
+
+  // getTransaction handler
+  getTransaction = (
+    call: grpc.ServerUnaryCall<rippleapi_pb.RequestGetTransaction>,
+    callback: grpc.sendUnaryData<rippleapi_pb.ResponseGetTransaction>,
+  ) : void => {
+    console.log("[getTransaction] is called");
+
+    // call API as async
+    this._getTransaction(call).then(txJSON => {
+      // response
+      const res = new rippleapi_pb.ResponseGetTransaction();
+      res.setResultjsonstring(txJSON);
+      callback(null, res);
+    })
   }
 
 };
