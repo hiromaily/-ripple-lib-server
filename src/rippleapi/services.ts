@@ -18,9 +18,14 @@ interface transaction {
   Destination: string;
 }
 
-interface resSubmitTransaction{
+interface resSubmitTransaction {
   resJSON: any;
   earlistLedgerVersion: number;
+}
+
+interface resGetTransaction {
+  txJSON: string;
+  errMessage: string;
 }
 
 class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
@@ -60,10 +65,11 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     return { resJSON: resJSON, earlistLedgerVersion: latestLedgerVersion + 1 };
   }
 
-  private async _getTransaction(call: grpc.ServerUnaryCall<rippleapi_pb.RequestGetTransaction>) : Promise<string> {
+  private async _getTransaction(call: grpc.ServerUnaryCall<rippleapi_pb.RequestGetTransaction>) : Promise<resGetTransaction> {
     console.log("_getTransaction()");
 
-    let txJSON: string
+    let txJSON: string = "";
+    let errMessage: string = "";
     try {
       const txID = call.request.getTxid();
       const tx = await this.rippleAPI.getTransaction(txID);
@@ -73,10 +79,10 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     } catch(error) {
       console.log("Couldn't get transaction outcome:", error);
       //MissingLedgerHistoryError: Server is missing ledger history in the specified range
-      txJSON = "";
+      errMessage = error;
     }
     
-    return txJSON;
+    return {txJSON: txJSON, errMessage: errMessage}
   }
 
   // prepareTransaction handler
@@ -183,10 +189,11 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     console.log("[getTransaction] is called");
 
     // call API as async
-    this._getTransaction(call).then(txJSON => {
+    this._getTransaction(call).then(resGetTx => {      
       // response
       const res = new rippleapi_pb.ResponseGetTransaction();
-      res.setResultjsonstring(txJSON);
+      res.setResultjsonstring(resGetTx.txJSON);
+      res.setErrormessage(resGetTx.txJSON);
       callback(null, res);
     })
   }
