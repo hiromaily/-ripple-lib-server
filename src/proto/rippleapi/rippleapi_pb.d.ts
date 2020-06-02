@@ -237,6 +237,9 @@ export class RequestGetTransaction extends jspb.Message {
     getTxid(): string;
     setTxid(value: string): RequestGetTransaction;
 
+    getMinledgerversion(): number;
+    setMinledgerversion(value: number): RequestGetTransaction;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): RequestGetTransaction.AsObject;
@@ -251,6 +254,7 @@ export class RequestGetTransaction extends jspb.Message {
 export namespace RequestGetTransaction {
     export type AsObject = {
         txid: string,
+        minledgerversion: number,
     }
 }
 

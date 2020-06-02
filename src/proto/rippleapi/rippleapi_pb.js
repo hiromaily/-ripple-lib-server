@@ -1739,7 +1739,8 @@ proto.rippleapi.RequestGetTransaction.prototype.toObject = function(opt_includeI
  */
 proto.rippleapi.RequestGetTransaction.toObject = function(includeInstance, msg) {
   var f, obj = {
-    txid: jspb.Message.getFieldWithDefault(msg, 1, "")
+    txid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    minledgerversion: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -1780,6 +1781,10 @@ proto.rippleapi.RequestGetTransaction.deserializeBinaryFromReader = function(msg
       var value = /** @type {string} */ (reader.readString());
       msg.setTxid(value);
       break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setMinledgerversion(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1816,6 +1821,13 @@ proto.rippleapi.RequestGetTransaction.serializeBinaryToWriter = function(message
       f
     );
   }
+  f = message.getMinledgerversion();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -1834,6 +1846,24 @@ proto.rippleapi.RequestGetTransaction.prototype.getTxid = function() {
  */
 proto.rippleapi.RequestGetTransaction.prototype.setTxid = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 minLedgerVersion = 2;
+ * @return {number}
+ */
+proto.rippleapi.RequestGetTransaction.prototype.getMinledgerversion = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.rippleapi.RequestGetTransaction} returns this
+ */
+proto.rippleapi.RequestGetTransaction.prototype.setMinledgerversion = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 

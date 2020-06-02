@@ -72,7 +72,9 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     let errMessage: string = "";
     try {
       const txID = call.request.getTxid();
-      const tx = await this.rippleAPI.getTransaction(txID);
+      const earliestLedgerVersion = call.request.getMinledgerversion();
+
+      const tx = await this.rippleAPI.getTransaction(txID, {minLedgerVersion: earliestLedgerVersion});
       console.log("Transaction result:", tx.outcome.result);
       console.log("Balance changes:", JSON.stringify(tx.outcome.balanceChanges));
       txJSON = JSON.stringify(tx);
