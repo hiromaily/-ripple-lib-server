@@ -2,14 +2,12 @@ import 'dotenv/config';
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import * as grpc from 'grpc';
 import * as ripple from 'ripple-lib';
-import * as rippleapi_grpc_pb from '../proto/rippleapi/rippleapi_grpc_pb';
-import * as rippleapi_pb from '../proto/rippleapi/rippleapi_pb';
+import * as transaction_grpc_pb from '../proto/rippleapi/transaction_grpc_pb';
+import * as transaction_pb from '../proto/rippleapi/transaction_pb';
 import { enumTransactionTypeString } from './enum';
 
 // this document may be useful
 // https://qiita.com/aanrii/items/699b4cda0babb3f47a2f
-
-const wsURL: string = process.env.RippleAPIURL || 'wss://s.altnet.rippletest.net:51233';
 
 interface transaction {
   TransactionType: string;
@@ -28,15 +26,18 @@ interface resGetTransaction {
   errMessage: string;
 }
 
-class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
+export class RippleTransactionAPIService implements transaction_grpc_pb.IRippleTransactionAPIServer {
   private rippleAPI: ripple.RippleAPI;
 
-  public constructor(wsURL: string) {
-    this.rippleAPI = new ripple.RippleAPI({server: wsURL});
-    this.rippleAPI.connect();
+  // public constructor(wsURL: string) {
+  //   this.rippleAPI = new ripple.RippleAPI({server: wsURL});
+  //   this.rippleAPI.connect();
+  // }
+  public constructor(rippleAPI: ripple.RippleAPI) {
+    this.rippleAPI = rippleAPI;
   }
 
-  private async _prepareTransaction(call: grpc.ServerUnaryCall<rippleapi_pb.RequestPrepareTransaction>) : Promise<string> {
+  private async _prepareTransaction(call: grpc.ServerUnaryCall<transaction_pb.RequestPrepareTransaction>) : Promise<string> {
     console.log("_prepareTransaction()");
 
     const txType = call.request.getTxType();
@@ -53,7 +54,7 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     return preparedTx.txJSON;
   }
 
-  private async _submitTransaction(call: grpc.ServerUnaryCall<rippleapi_pb.RequestSubmitTransaction>) : Promise<resSubmitTransaction> {
+  private async _submitTransaction(call: grpc.ServerUnaryCall<transaction_pb.RequestSubmitTransaction>) : Promise<resSubmitTransaction> {
     console.log("_submitTransaction()");
 
     const latestLedgerVersion = await this.rippleAPI.getLedgerVersion();
@@ -65,7 +66,7 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     return { resJSON: resJSON, earlistLedgerVersion: latestLedgerVersion + 1 };
   }
 
-  private async _getTransaction(call: grpc.ServerUnaryCall<rippleapi_pb.RequestGetTransaction>) : Promise<resGetTransaction> {
+  private async _getTransaction(call: grpc.ServerUnaryCall<transaction_pb.RequestGetTransaction>) : Promise<resGetTransaction> {
     console.log("_getTransaction()");
 
     let txJSON: string = "";
@@ -91,8 +92,8 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
 
   // prepareTransaction handler
   prepareTransaction = (
-    call: grpc.ServerUnaryCall<rippleapi_pb.RequestPrepareTransaction>,
-    callback: grpc.sendUnaryData<rippleapi_pb.ResponsePrepareTransaction>,
+    call: grpc.ServerUnaryCall<transaction_pb.RequestPrepareTransaction>,
+    callback: grpc.sendUnaryData<transaction_pb.ResponsePrepareTransaction>,
   ) : void => {
     console.log("[prepareTransaction] is called");
 
@@ -102,7 +103,7 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
       //console.log("txJSON", txJSON);
 
       // response
-      const res = new rippleapi_pb.ResponsePrepareTransaction();
+      const res = new transaction_pb.ResponsePrepareTransaction();
       res.setTxjson(txJSON);
       callback(null, res);
     })
@@ -110,8 +111,8 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
 
   // signTransaction handler
   signTransaction = (
-    call: grpc.ServerUnaryCall<rippleapi_pb.RequestSignTransaction>,
-    callback: grpc.sendUnaryData<rippleapi_pb.ResponseSignTransaction>,
+    call: grpc.ServerUnaryCall<transaction_pb.RequestSignTransaction>,
+    callback: grpc.sendUnaryData<transaction_pb.ResponseSignTransaction>,
   ) : void => {
     console.log("[signTransaction] is called");
   
@@ -121,7 +122,7 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
     console.log("txBlob: Signed blob:", signed.signedTransaction);
   
     // response
-    const res = new rippleapi_pb.ResponseSignTransaction();
+    const res = new transaction_pb.ResponseSignTransaction();
     res.setTxid(signed.id);
     res.setTxblob(signed.signedTransaction);
     callback(null, res);
@@ -129,8 +130,8 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
 
   // submitTransaction handler
   submitTransaction = (
-    call: grpc.ServerUnaryCall<rippleapi_pb.RequestSubmitTransaction>,
-    callback: grpc.sendUnaryData<rippleapi_pb.ResponseSubmitTransaction>,
+    call: grpc.ServerUnaryCall<transaction_pb.RequestSubmitTransaction>,
+    callback: grpc.sendUnaryData<transaction_pb.ResponseSubmitTransaction>,
   ) : void => {
     console.log("[submitTransaction] is called");
 
@@ -141,7 +142,7 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
       console.log("earlistLedgerVersion", resAPI.earlistLedgerVersion);
 
       // response
-      const res = new rippleapi_pb.ResponseSubmitTransaction();
+      const res = new transaction_pb.ResponseSubmitTransaction();
       res.setResultjsonstring(resJSON);
       res.setEarliestledgerversion(resAPI.earlistLedgerVersion);
       callback(null, res);
@@ -163,7 +164,7 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
 
       console.log("Ledger version", ledger.ledgerVersion, "was just validated.", call.cancelled);
       // response
-      const res = new rippleapi_pb.ResponseWaitValidation();
+      const res = new transaction_pb.ResponseWaitValidation();
       res.setLedgerversion(<number>ledger.ledgerVersion);
       call.write(res);
     }
@@ -187,15 +188,15 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
 
   // getTransaction handler
   getTransaction = (
-    call: grpc.ServerUnaryCall<rippleapi_pb.RequestGetTransaction>,
-    callback: grpc.sendUnaryData<rippleapi_pb.ResponseGetTransaction>,
+    call: grpc.ServerUnaryCall<transaction_pb.RequestGetTransaction>,
+    callback: grpc.sendUnaryData<transaction_pb.ResponseGetTransaction>,
   ) : void => {
     console.log("[getTransaction] is called");
 
     // call API as async
     this._getTransaction(call).then(resGetTx => {      
       // response
-      const res = new rippleapi_pb.ResponseGetTransaction();
+      const res = new transaction_pb.ResponseGetTransaction();
       res.setResultjsonstring(resGetTx.txJSON);
       res.setErrormessage(resGetTx.errMessage);
       callback(null, res);
@@ -204,7 +205,8 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
 
 };
 
-export default {
-  service: rippleapi_grpc_pb.RippleAPIService,  // Service interface
-  impl: new RippleAPIService(wsURL),            // Service interface definitions
-};
+// export default {
+//   service: transaction_grpc_pb.RippleTransactionAPIService,  // Service interface
+//   impl: new RippleTransactionAPIService(wsURL),              // Service interface definitions
+// };
+export const service = transaction_grpc_pb.RippleTransactionAPIService;

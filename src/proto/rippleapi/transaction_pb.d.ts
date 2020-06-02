@@ -1,5 +1,5 @@
-// package: rippleapi
-// file: proto/rippleapi/rippleapi.proto
+// package: rippleapi.transaction
+// file: proto/rippleapi/transaction.proto
 
 /* tslint:disable */
 /* eslint-disable */
