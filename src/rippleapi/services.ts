@@ -80,7 +80,8 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
       txJSON = JSON.stringify(tx);
     } catch(error) {
       console.log("Couldn't get transaction outcome:", error);
-      //MissingLedgerHistoryError: Server is missing ledger history in the specified range
+      // MissingLedgerHistoryError: Server is missing ledger history in the specified range
+      // NotFoundError: Transaction has not been validated yet; try again later
       errMessage = error;
     }
     
@@ -195,7 +196,7 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
       // response
       const res = new rippleapi_pb.ResponseGetTransaction();
       res.setResultjsonstring(resGetTx.txJSON);
-      res.setErrormessage(resGetTx.txJSON);
+      res.setErrormessage(resGetTx.errMessage);
       callback(null, res);
     })
   }
