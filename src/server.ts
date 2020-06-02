@@ -2,6 +2,7 @@ import 'dotenv/config';
 import * as grpc from 'grpc';
 import * as ripple from 'ripple-lib';
 import * as rippleTxAPI from './rippleapi/service_transaction';
+import * as rippleAccountAPI from './rippleapi/service_account';
 
 
 const port: string | number = process.env.PORT || 50051;
@@ -19,7 +20,12 @@ export const startServer: StartServerType = (): void => {
     rippleTxAPI.service,
     new rippleTxAPI.RippleTransactionAPIService(rippleAPI),
   );
+  server.addService(
+    rippleAccountAPI.service,
+    new rippleAccountAPI.RippleAccountAPIService(rippleAPI),
+  );
 
+  // run server
   server.bindAsync(
     `0.0.0.0:${ port }`,
     grpc.ServerCredentials.createInsecure(),

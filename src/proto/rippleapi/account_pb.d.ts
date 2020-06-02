@@ -10,9 +10,6 @@ export class RequestGetAccountInfo extends jspb.Message {
     getAddress(): string;
     setAddress(value: string): RequestGetAccountInfo;
 
-    getLedgerversion(): number;
-    setLedgerversion(value: number): RequestGetAccountInfo;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): RequestGetAccountInfo.AsObject;
@@ -27,13 +24,12 @@ export class RequestGetAccountInfo extends jspb.Message {
 export namespace RequestGetAccountInfo {
     export type AsObject = {
         address: string,
-        ledgerversion: number,
     }
 }
 
 export class ResponseGetAccountInfo extends jspb.Message { 
-    getSequence(): string;
-    setSequence(value: string): ResponseGetAccountInfo;
+    getSequence(): number;
+    setSequence(value: number): ResponseGetAccountInfo;
 
     getXrpbalance(): string;
     setXrpbalance(value: string): ResponseGetAccountInfo;
@@ -60,7 +56,7 @@ export class ResponseGetAccountInfo extends jspb.Message {
 
 export namespace ResponseGetAccountInfo {
     export type AsObject = {
-        sequence: string,
+        sequence: number,
         xrpbalance: string,
         ownercount: number,
         previousaffectingtransactionid: string,

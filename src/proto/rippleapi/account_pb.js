@@ -88,8 +88,7 @@ proto.rippleapi.account.RequestGetAccountInfo.prototype.toObject = function(opt_
  */
 proto.rippleapi.account.RequestGetAccountInfo.toObject = function(includeInstance, msg) {
   var f, obj = {
-    address: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    ledgerversion: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    address: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -130,10 +129,6 @@ proto.rippleapi.account.RequestGetAccountInfo.deserializeBinaryFromReader = func
       var value = /** @type {string} */ (reader.readString());
       msg.setAddress(value);
       break;
-    case 2:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.setLedgerversion(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -170,13 +165,6 @@ proto.rippleapi.account.RequestGetAccountInfo.serializeBinaryToWriter = function
       f
     );
   }
-  f = message.getLedgerversion();
-  if (f !== 0) {
-    writer.writeUint64(
-      2,
-      f
-    );
-  }
 };
 
 
@@ -195,24 +183,6 @@ proto.rippleapi.account.RequestGetAccountInfo.prototype.getAddress = function() 
  */
 proto.rippleapi.account.RequestGetAccountInfo.prototype.setAddress = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional uint64 ledgerVersion = 2;
- * @return {number}
- */
-proto.rippleapi.account.RequestGetAccountInfo.prototype.getLedgerversion = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.rippleapi.account.RequestGetAccountInfo} returns this
- */
-proto.rippleapi.account.RequestGetAccountInfo.prototype.setLedgerversion = function(value) {
-  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -248,7 +218,7 @@ proto.rippleapi.account.ResponseGetAccountInfo.prototype.toObject = function(opt
  */
 proto.rippleapi.account.ResponseGetAccountInfo.toObject = function(includeInstance, msg) {
   var f, obj = {
-    sequence: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    sequence: jspb.Message.getFieldWithDefault(msg, 1, 0),
     xrpbalance: jspb.Message.getFieldWithDefault(msg, 2, ""),
     ownercount: jspb.Message.getFieldWithDefault(msg, 3, 0),
     previousaffectingtransactionid: jspb.Message.getFieldWithDefault(msg, 4, ""),
@@ -290,7 +260,7 @@ proto.rippleapi.account.ResponseGetAccountInfo.deserializeBinaryFromReader = fun
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setSequence(value);
       break;
     case 2:
@@ -339,8 +309,8 @@ proto.rippleapi.account.ResponseGetAccountInfo.prototype.serializeBinary = funct
 proto.rippleapi.account.ResponseGetAccountInfo.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getSequence();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeUint64(
       1,
       f
     );
@@ -377,20 +347,20 @@ proto.rippleapi.account.ResponseGetAccountInfo.serializeBinaryToWriter = functio
 
 
 /**
- * optional string sequence = 1;
- * @return {string}
+ * optional uint64 sequence = 1;
+ * @return {number}
  */
 proto.rippleapi.account.ResponseGetAccountInfo.prototype.getSequence = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /**
- * @param {string} value
+ * @param {number} value
  * @return {!proto.rippleapi.account.ResponseGetAccountInfo} returns this
  */
 proto.rippleapi.account.ResponseGetAccountInfo.prototype.setSequence = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 

@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import * as grpc from 'grpc';
 import * as ripple from 'ripple-lib';
