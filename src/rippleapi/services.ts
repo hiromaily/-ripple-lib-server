@@ -82,6 +82,7 @@ class RippleAPIService implements rippleapi_grpc_pb.IRippleAPIServer {
       console.log("Couldn't get transaction outcome:", error);
       // MissingLedgerHistoryError: Server is missing ledger history in the specified range
       // NotFoundError: Transaction has not been validated yet; try again later
+      // NotFoundError: Transaction not found
       errMessage = error;
     }
     

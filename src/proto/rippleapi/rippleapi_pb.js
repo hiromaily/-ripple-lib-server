@@ -318,19 +318,19 @@ proto.rippleapi.Instructions.deserializeBinaryFromReader = function(msg, reader)
       msg.setMaxfee(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setMaxledgerversion(value);
       break;
     case 4:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setMaxledgerversionoffset(value);
       break;
     case 5:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setSequence(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setSignerscount(value);
       break;
     default:
@@ -378,28 +378,28 @@ proto.rippleapi.Instructions.serializeBinaryToWriter = function(message, writer)
   }
   f = message.getMaxledgerversion();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeUint64(
       3,
       f
     );
   }
   f = message.getMaxledgerversionoffset();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeUint64(
       4,
       f
     );
   }
   f = message.getSequence();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeUint64(
       5,
       f
     );
   }
   f = message.getSignerscount();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeUint64(
       6,
       f
     );
@@ -444,7 +444,7 @@ proto.rippleapi.Instructions.prototype.setMaxfee = function(value) {
 
 
 /**
- * optional uint32 maxLedgerVersion = 3;
+ * optional uint64 maxLedgerVersion = 3;
  * @return {number}
  */
 proto.rippleapi.Instructions.prototype.getMaxledgerversion = function() {
@@ -462,7 +462,7 @@ proto.rippleapi.Instructions.prototype.setMaxledgerversion = function(value) {
 
 
 /**
- * optional uint32 maxLedgerVersionOffset = 4;
+ * optional uint64 maxLedgerVersionOffset = 4;
  * @return {number}
  */
 proto.rippleapi.Instructions.prototype.getMaxledgerversionoffset = function() {
@@ -480,7 +480,7 @@ proto.rippleapi.Instructions.prototype.setMaxledgerversionoffset = function(valu
 
 
 /**
- * optional uint32 sequence = 5;
+ * optional uint64 sequence = 5;
  * @return {number}
  */
 proto.rippleapi.Instructions.prototype.getSequence = function() {
@@ -498,7 +498,7 @@ proto.rippleapi.Instructions.prototype.setSequence = function(value) {
 
 
 /**
- * optional uint32 signersCount = 6;
+ * optional uint64 signersCount = 6;
  * @return {number}
  */
 proto.rippleapi.Instructions.prototype.getSignerscount = function() {
@@ -1492,7 +1492,7 @@ proto.rippleapi.ResponseSubmitTransaction.deserializeBinaryFromReader = function
       msg.setResultjsonstring(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setEarliestledgerversion(value);
       break;
     default:
@@ -1533,7 +1533,7 @@ proto.rippleapi.ResponseSubmitTransaction.serializeBinaryToWriter = function(mes
   }
   f = message.getEarliestledgerversion();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeUint64(
       2,
       f
     );
@@ -1560,7 +1560,7 @@ proto.rippleapi.ResponseSubmitTransaction.prototype.setResultjsonstring = functi
 
 
 /**
- * optional uint32 earliestLedgerVersion = 2;
+ * optional uint64 earliestLedgerVersion = 2;
  * @return {number}
  */
 proto.rippleapi.ResponseSubmitTransaction.prototype.getEarliestledgerversion = function() {
@@ -1647,7 +1647,7 @@ proto.rippleapi.ResponseWaitValidation.deserializeBinaryFromReader = function(ms
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setLedgerversion(value);
       break;
     default:
@@ -1681,7 +1681,7 @@ proto.rippleapi.ResponseWaitValidation.serializeBinaryToWriter = function(messag
   var f = undefined;
   f = message.getLedgerversion();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeUint64(
       1,
       f
     );
@@ -1690,7 +1690,7 @@ proto.rippleapi.ResponseWaitValidation.serializeBinaryToWriter = function(messag
 
 
 /**
- * optional uint32 ledgerVersion = 1;
+ * optional uint64 ledgerVersion = 1;
  * @return {number}
  */
 proto.rippleapi.ResponseWaitValidation.prototype.getLedgerversion = function() {
@@ -1782,7 +1782,7 @@ proto.rippleapi.RequestGetTransaction.deserializeBinaryFromReader = function(msg
       msg.setTxid(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setMinledgerversion(value);
       break;
     default:
@@ -1823,7 +1823,7 @@ proto.rippleapi.RequestGetTransaction.serializeBinaryToWriter = function(message
   }
   f = message.getMinledgerversion();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeUint64(
       2,
       f
     );
@@ -1850,7 +1850,7 @@ proto.rippleapi.RequestGetTransaction.prototype.setTxid = function(value) {
 
 
 /**
- * optional uint32 minLedgerVersion = 2;
+ * optional uint64 minLedgerVersion = 2;
  * @return {number}
  */
 proto.rippleapi.RequestGetTransaction.prototype.getMinledgerversion = function() {
