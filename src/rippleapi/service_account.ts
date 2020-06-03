@@ -1,11 +1,10 @@
-import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import * as grpc from 'grpc';
 import * as ripple from 'ripple-lib';
-import * as account_grpc_pb from '../proto/rippleapi/account_grpc_pb';
-import * as account_pb from '../proto/rippleapi/account_pb';
+import * as grpc_pb from '../proto/rippleapi/account_grpc_pb';
+import * as pb from '../proto/rippleapi/account_pb';
 
 
-export class RippleAccountAPIService implements account_grpc_pb.IRippleAccountAPIServer {
+export class RippleAccountAPIService implements grpc_pb.IRippleAccountAPIServer {
   private rippleAPI: ripple.RippleAPI;
 
   public constructor(rippleAPI: ripple.RippleAPI) {
@@ -14,8 +13,8 @@ export class RippleAccountAPIService implements account_grpc_pb.IRippleAccountAP
 
   // getAccountInfo handler
   getAccountInfo = (
-    call: grpc.ServerUnaryCall<account_pb.RequestGetAccountInfo>,
-    callback: grpc.sendUnaryData<account_pb.ResponseGetAccountInfo>,
+    call: grpc.ServerUnaryCall<pb.RequestGetAccountInfo>,
+    callback: grpc.sendUnaryData<pb.ResponseGetAccountInfo>,
   ) : void => {
     console.log("[getAccountInfo] is called");
     const address = call.request.getAddress();
@@ -24,7 +23,7 @@ export class RippleAccountAPIService implements account_grpc_pb.IRippleAccountAP
     this.rippleAPI.getAccountInfo(address).then(info => {
       console.log("account xrpBalance:", info.xrpBalance);
       // response
-      const res = new account_pb.ResponseGetAccountInfo();
+      const res = new pb.ResponseGetAccountInfo();
       res.setSequence(info.sequence);
       res.setXrpbalance(info.xrpBalance);
       res.setOwnercount(info.ownerCount);
@@ -36,4 +35,4 @@ export class RippleAccountAPIService implements account_grpc_pb.IRippleAccountAP
 
 };
 
-export const service = account_grpc_pb.RippleAccountAPIService;
+export const service = grpc_pb.RippleAccountAPIService;

@@ -3,6 +3,7 @@ import * as grpc from 'grpc';
 import * as ripple from 'ripple-lib';
 import * as rippleTxAPI from './rippleapi/service_transaction';
 import * as rippleAccountAPI from './rippleapi/service_account';
+import * as rippleAddressAPI from './rippleapi/service_address';
 
 
 const port: string | number = process.env.PORT || 50051;
@@ -23,6 +24,10 @@ export const startServer: StartServerType = (): void => {
   server.addService(
     rippleAccountAPI.service,
     new rippleAccountAPI.RippleAccountAPIService(rippleAPI),
+  );
+  server.addService(
+    rippleAddressAPI.service,
+    new rippleAddressAPI.RippleAddressAPIService(rippleAPI),
   );
 
   // run server

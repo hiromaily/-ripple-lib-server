@@ -7,7 +7,7 @@ init:
 	# initialize a tsconfig.json
 	yarn tsc --init --rootDir src --outDir dist
 
-	yarn add -D @types/node nodemon ts-node ts-node-dev
+	yarn add -D @types/node nodemon ts-node ts-node-dev tslint-config-prettier
 
 	yarn add grpc
 	yarn add google-protobuf
@@ -16,9 +16,6 @@ init:
 	yarn add dotenv
 	yarn add -D @types/dotenv
 	yarn add ripple-lib
-
-
-
 
 
 .PHONY: add-submodule
@@ -43,6 +40,6 @@ gen-proto:
 .PHONY: update
 update: update-submodule gen-proto
 
-# .PHONY: startjs
-# startjs:
-# 	node src/server.js
+.PHONY: run
+run:
+	yarn run dev
