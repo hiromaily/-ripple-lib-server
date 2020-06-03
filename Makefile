@@ -1,13 +1,14 @@
 .PHONY: init
 init:
 	yarn init -y
-	yarn add -D typescript
+	yarn add -D typescript tslint
 	# version
 	yarn tsc --version
 	# initialize a tsconfig.json
 	yarn tsc --init --rootDir src --outDir dist
 
-	yarn add -D @types/node nodemon ts-node ts-node-dev tslint-config-prettier
+	yarn add -D @types/node nodemon ts-node ts-node-dev
+	yarn add -D prettier tslint-plugin-prettier tslint-config-prettier tslint-eslint-rules
 
 	yarn add grpc
 	yarn add google-protobuf
