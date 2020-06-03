@@ -65,6 +65,8 @@ export class RippleTransactionAPIService implements transaction_grpc_pb.IRippleT
     return { resJSON: resJSON, earlistLedgerVersion: latestLedgerVersion + 1 };
   }
 
+  // Ledger History
+  // https://xrpl.org/ledger-history.html
   private async _getTransaction(call: grpc.ServerUnaryCall<transaction_pb.RequestGetTransaction>) : Promise<resGetTransaction> {
     console.log("_getTransaction()");
 
@@ -109,6 +111,7 @@ export class RippleTransactionAPIService implements transaction_grpc_pb.IRippleT
   }
 
   // signTransaction handler
+  // https://xrpl.org/rippleapi-reference.html#offline-functionality
   signTransaction = (
     call: grpc.ServerUnaryCall<transaction_pb.RequestSignTransaction>,
     callback: grpc.sendUnaryData<transaction_pb.ResponseSignTransaction>,
