@@ -11,10 +11,22 @@ const wsURL: string = process.env.RippleAPIURL || 'wss://s.altnet.rippletest.net
 
 type StartServerType = () => void;
 export const startServer: StartServerType = (): void => {
-  // connect to ripple server
   // Note: if it run as offline mode, run without parameter. `new RippleAPI();`
   // https://xrpl.org/rippleapi-reference.html#offline-functionality
   let rippleAPI = new ripple.RippleAPI({server: wsURL});
+
+  // event handler
+  rippleAPI.on('error', (errorCode, errorMessage) => {
+    console.log(errorCode + ': ' + errorMessage);
+  });
+  rippleAPI.on('disconnected', (code) => {
+    // code - [close code](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent) sent by the server
+    // will be 1000 if this was normal closure
+    console.log('disconnected, code:', code);
+  });
+
+  // connect to ripple server
+  // https://xrpl.org/rippleapi-reference.html#boilerplate
   rippleAPI.connect();
 
   // grpc setting
