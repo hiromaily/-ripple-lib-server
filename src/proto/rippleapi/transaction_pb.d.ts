@@ -283,6 +283,54 @@ export namespace ResponseGetTransaction {
     }
 }
 
+export class RequestCombineTransaction extends jspb.Message { 
+    clearSignedtransactionsList(): void;
+    getSignedtransactionsList(): Array<string>;
+    setSignedtransactionsList(value: Array<string>): RequestCombineTransaction;
+    addSignedtransactions(value: string, index?: number): string;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): RequestCombineTransaction.AsObject;
+    static toObject(includeInstance: boolean, msg: RequestCombineTransaction): RequestCombineTransaction.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: RequestCombineTransaction, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RequestCombineTransaction;
+    static deserializeBinaryFromReader(message: RequestCombineTransaction, reader: jspb.BinaryReader): RequestCombineTransaction;
+}
+
+export namespace RequestCombineTransaction {
+    export type AsObject = {
+        signedtransactionsList: Array<string>,
+    }
+}
+
+export class ResponseCombineTransaction extends jspb.Message { 
+    getSignedtransaction(): string;
+    setSignedtransaction(value: string): ResponseCombineTransaction;
+
+    getTxid(): string;
+    setTxid(value: string): ResponseCombineTransaction;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ResponseCombineTransaction.AsObject;
+    static toObject(includeInstance: boolean, msg: ResponseCombineTransaction): ResponseCombineTransaction.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ResponseCombineTransaction, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ResponseCombineTransaction;
+    static deserializeBinaryFromReader(message: ResponseCombineTransaction, reader: jspb.BinaryReader): ResponseCombineTransaction;
+}
+
+export namespace ResponseCombineTransaction {
+    export type AsObject = {
+        signedtransaction: string,
+        txid: string,
+    }
+}
+
 export enum EnumTransactionType {
     TX_ACCOUNT_SET = 0,
     TX_ACCOUNT_DELETE = 1,

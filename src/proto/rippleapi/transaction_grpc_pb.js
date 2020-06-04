@@ -16,6 +16,17 @@ function deserialize_google_protobuf_Empty(buffer_arg) {
   return google_protobuf_empty_pb.Empty.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_rippleapi_transaction_RequestCombineTransaction(arg) {
+  if (!(arg instanceof proto_rippleapi_transaction_pb.RequestCombineTransaction)) {
+    throw new Error('Expected argument of type rippleapi.transaction.RequestCombineTransaction');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_rippleapi_transaction_RequestCombineTransaction(buffer_arg) {
+  return proto_rippleapi_transaction_pb.RequestCombineTransaction.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_rippleapi_transaction_RequestGetTransaction(arg) {
   if (!(arg instanceof proto_rippleapi_transaction_pb.RequestGetTransaction)) {
     throw new Error('Expected argument of type rippleapi.transaction.RequestGetTransaction');
@@ -58,6 +69,17 @@ function serialize_rippleapi_transaction_RequestSubmitTransaction(arg) {
 
 function deserialize_rippleapi_transaction_RequestSubmitTransaction(buffer_arg) {
   return proto_rippleapi_transaction_pb.RequestSubmitTransaction.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_rippleapi_transaction_ResponseCombineTransaction(arg) {
+  if (!(arg instanceof proto_rippleapi_transaction_pb.ResponseCombineTransaction)) {
+    throw new Error('Expected argument of type rippleapi.transaction.ResponseCombineTransaction');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_rippleapi_transaction_ResponseCombineTransaction(buffer_arg) {
+  return proto_rippleapi_transaction_pb.ResponseCombineTransaction.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_rippleapi_transaction_ResponseGetTransaction(arg) {
@@ -173,6 +195,17 @@ prepareTransaction: {
     requestDeserialize: deserialize_rippleapi_transaction_RequestGetTransaction,
     responseSerialize: serialize_rippleapi_transaction_ResponseGetTransaction,
     responseDeserialize: deserialize_rippleapi_transaction_ResponseGetTransaction,
+  },
+  combineTransaction: {
+    path: '/rippleapi.transaction.RippleTransactionAPI/CombineTransaction',
+    requestStream: false,
+    responseStream: false,
+    requestType: proto_rippleapi_transaction_pb.RequestCombineTransaction,
+    responseType: proto_rippleapi_transaction_pb.ResponseCombineTransaction,
+    requestSerialize: serialize_rippleapi_transaction_RequestCombineTransaction,
+    requestDeserialize: deserialize_rippleapi_transaction_RequestCombineTransaction,
+    responseSerialize: serialize_rippleapi_transaction_ResponseCombineTransaction,
+    responseDeserialize: deserialize_rippleapi_transaction_ResponseCombineTransaction,
   },
 };
 

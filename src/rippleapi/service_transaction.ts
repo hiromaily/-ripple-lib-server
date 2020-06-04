@@ -25,6 +25,11 @@ interface resGetTransaction {
   errMessage: string;
 }
 
+interface resCombineTransaction {
+  signedTransaction: string;
+  txJSON: string;
+}
+
 export class RippleTransactionAPIService implements grpc_pb.IRippleTransactionAPIServer {
   private rippleAPI: ripple.RippleAPI;
 
@@ -205,7 +210,30 @@ export class RippleTransactionAPIService implements grpc_pb.IRippleTransactionAP
     })
   }
 
+  // combineTransaction handler
+  combineTransaction = (
+    call: grpc.ServerUnaryCall<pb.RequestCombineTransaction>,
+    callback: grpc.sendUnaryData<pb.ResponseCombineTransaction>,
+  ) : void => {
+    console.log("[combineTransaction] is called");
+
+    const signedObj = this.rippleAPI.combine(call.request.getSignedtransactionsList());
+    console.log('signedObj:', signedObj);
+    //resCombineTransaction
+    // response
+    const res = new pb.ResponseCombineTransaction();
+    //if(typeof signed === 'object' && 'signedTransaction' in signed) {
+    if (isResCombineTransaction(signedObj)){
+      const signed = signedObj as resCombineTransaction;
+      res.setSignedtransaction(<string>signed.signedTransaction);
+      res.setTxid(signed.txJSON);  
+    }
+    callback(null, res);
+  }
 };
+
+const isResCombineTransaction = (obj: any): obj is resCombineTransaction =>
+  obj.signedTransaction && obj.txJSON;
 
 // export default {
 //   service: transaction_grpc_pb.RippleTransactionAPIService,  // Service interface

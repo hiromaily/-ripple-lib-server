@@ -14,6 +14,7 @@ interface IRippleTransactionAPIService extends grpc.ServiceDefinition<grpc.Untyp
     submitTransaction: IRippleTransactionAPIService_ISubmitTransaction;
     waitValidation: IRippleTransactionAPIService_IWaitValidation;
     getTransaction: IRippleTransactionAPIService_IGetTransaction;
+    combineTransaction: IRippleTransactionAPIService_ICombineTransaction;
 }
 
 interface IRippleTransactionAPIService_IPrepareTransaction extends grpc.MethodDefinition<proto_rippleapi_transaction_pb.RequestPrepareTransaction, proto_rippleapi_transaction_pb.ResponsePrepareTransaction> {
@@ -61,6 +62,15 @@ interface IRippleTransactionAPIService_IGetTransaction extends grpc.MethodDefini
     responseSerialize: grpc.serialize<proto_rippleapi_transaction_pb.ResponseGetTransaction>;
     responseDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.ResponseGetTransaction>;
 }
+interface IRippleTransactionAPIService_ICombineTransaction extends grpc.MethodDefinition<proto_rippleapi_transaction_pb.RequestCombineTransaction, proto_rippleapi_transaction_pb.ResponseCombineTransaction> {
+    path: string; // "/rippleapi.transaction.RippleTransactionAPI/CombineTransaction"
+    requestStream: boolean; // false
+    responseStream: boolean; // false
+    requestSerialize: grpc.serialize<proto_rippleapi_transaction_pb.RequestCombineTransaction>;
+    requestDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.RequestCombineTransaction>;
+    responseSerialize: grpc.serialize<proto_rippleapi_transaction_pb.ResponseCombineTransaction>;
+    responseDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.ResponseCombineTransaction>;
+}
 
 export const RippleTransactionAPIService: IRippleTransactionAPIService;
 
@@ -70,6 +80,7 @@ export interface IRippleTransactionAPIServer {
     submitTransaction: grpc.handleUnaryCall<proto_rippleapi_transaction_pb.RequestSubmitTransaction, proto_rippleapi_transaction_pb.ResponseSubmitTransaction>;
     waitValidation: grpc.handleServerStreamingCall<google_protobuf_empty_pb.Empty, proto_rippleapi_transaction_pb.ResponseWaitValidation>;
     getTransaction: grpc.handleUnaryCall<proto_rippleapi_transaction_pb.RequestGetTransaction, proto_rippleapi_transaction_pb.ResponseGetTransaction>;
+    combineTransaction: grpc.handleUnaryCall<proto_rippleapi_transaction_pb.RequestCombineTransaction, proto_rippleapi_transaction_pb.ResponseCombineTransaction>;
 }
 
 export interface IRippleTransactionAPIClient {
@@ -87,6 +98,9 @@ export interface IRippleTransactionAPIClient {
     getTransaction(request: proto_rippleapi_transaction_pb.RequestGetTransaction, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
     getTransaction(request: proto_rippleapi_transaction_pb.RequestGetTransaction, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
     getTransaction(request: proto_rippleapi_transaction_pb.RequestGetTransaction, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
+    combineTransaction(request: proto_rippleapi_transaction_pb.RequestCombineTransaction, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseCombineTransaction) => void): grpc.ClientUnaryCall;
+    combineTransaction(request: proto_rippleapi_transaction_pb.RequestCombineTransaction, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseCombineTransaction) => void): grpc.ClientUnaryCall;
+    combineTransaction(request: proto_rippleapi_transaction_pb.RequestCombineTransaction, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseCombineTransaction) => void): grpc.ClientUnaryCall;
 }
 
 export class RippleTransactionAPIClient extends grpc.Client implements IRippleTransactionAPIClient {
@@ -105,4 +119,7 @@ export class RippleTransactionAPIClient extends grpc.Client implements IRippleTr
     public getTransaction(request: proto_rippleapi_transaction_pb.RequestGetTransaction, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
     public getTransaction(request: proto_rippleapi_transaction_pb.RequestGetTransaction, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
     public getTransaction(request: proto_rippleapi_transaction_pb.RequestGetTransaction, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseGetTransaction) => void): grpc.ClientUnaryCall;
+    public combineTransaction(request: proto_rippleapi_transaction_pb.RequestCombineTransaction, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseCombineTransaction) => void): grpc.ClientUnaryCall;
+    public combineTransaction(request: proto_rippleapi_transaction_pb.RequestCombineTransaction, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseCombineTransaction) => void): grpc.ClientUnaryCall;
+    public combineTransaction(request: proto_rippleapi_transaction_pb.RequestCombineTransaction, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: proto_rippleapi_transaction_pb.ResponseCombineTransaction) => void): grpc.ClientUnaryCall;
 }
