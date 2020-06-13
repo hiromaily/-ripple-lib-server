@@ -20,7 +20,8 @@ export class RippleAccountAPIService implements grpc_pb.IRippleAccountAPIServer 
     const address = call.request.getAddress();
     //const ledgerversion = call.request.getLedgerversion();
 
-    this.rippleAPI.getAccountInfo(address).then(info => {
+    this.rippleAPI.getAccountInfo(address)
+    .then(info => {
       console.log("account xrpBalance:", info.xrpBalance);
       // response
       const res = new pb.ResponseGetAccountInfo();
@@ -29,6 +30,11 @@ export class RippleAccountAPIService implements grpc_pb.IRippleAccountAPIServer 
       res.setOwnercount(info.ownerCount);
       res.setPreviousaffectingtransactionid(info.previousAffectingTransactionID);
       res.setPreviousaffectingtransactionledgerversion(info.previousAffectingTransactionLedgerVersion);
+      callback(null, res);
+    })
+    .catch((error) => {
+      console.log(error);
+      const res = new pb.ResponseGetAccountInfo();
       callback(null, res);
     });
   }
