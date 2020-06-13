@@ -1,7 +1,8 @@
-import * as grpc from 'grpc';
+import grpc, {sendUnaryData, ServerUnaryCall, ServiceError} from 'grpc';
 import * as ripple from 'ripple-lib';
 import * as grpc_pb from '../proto/rippleapi/account_grpc_pb';
 import * as pb from '../proto/rippleapi/account_pb';
+import { rippledError } from './errors';
 
 
 export class RippleAccountAPIService implements grpc_pb.IRippleAccountAPIServer {
@@ -13,8 +14,8 @@ export class RippleAccountAPIService implements grpc_pb.IRippleAccountAPIServer 
 
   // getAccountInfo handler
   getAccountInfo = (
-    call: grpc.ServerUnaryCall<pb.RequestGetAccountInfo>,
-    callback: grpc.sendUnaryData<pb.ResponseGetAccountInfo>,
+    call: ServerUnaryCall<pb.RequestGetAccountInfo>,
+    callback: sendUnaryData<pb.ResponseGetAccountInfo>,
   ) : void => {
     console.log("[getAccountInfo] is called");
     const address = call.request.getAddress();
@@ -32,10 +33,14 @@ export class RippleAccountAPIService implements grpc_pb.IRippleAccountAPIServer 
       res.setPreviousaffectingtransactionledgerversion(info.previousAffectingTransactionLedgerVersion);
       callback(null, res);
     })
-    .catch((error) => {
-      console.log(error);
-      const res = new pb.ResponseGetAccountInfo();
-      callback(null, res);
+    .catch((error: rippledError) => {
+      console.log(error.data);
+      const statusError: ServiceError = {
+        name: 'getAccountInfo error',
+        message: error.data.error_message,
+        code: grpc.status.INVALID_ARGUMENT,
+      };
+      callback(statusError, null);
     });
   }
 
