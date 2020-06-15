@@ -27,7 +27,11 @@ export const startServer: StartServerType = (): void => {
 
   // connect to ripple server
   // https://xrpl.org/rippleapi-reference.html#boilerplate
-  rippleAPI.connect();
+  rippleAPI.connect().then(() => {
+    console.log('connected');
+  }).catch((e) => {
+    console.log(e);
+  });
 
   // grpc setting
   const server = new grpc.Server();
