@@ -262,9 +262,6 @@ export class ResponseGetTransaction extends jspb.Message {
     getResultjsonstring(): string;
     setResultjsonstring(value: string): ResponseGetTransaction;
 
-    getErrormessage(): string;
-    setErrormessage(value: string): ResponseGetTransaction;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResponseGetTransaction.AsObject;
@@ -279,7 +276,6 @@ export class ResponseGetTransaction extends jspb.Message {
 export namespace ResponseGetTransaction {
     export type AsObject = {
         resultjsonstring: string,
-        errormessage: string,
     }
 }
 

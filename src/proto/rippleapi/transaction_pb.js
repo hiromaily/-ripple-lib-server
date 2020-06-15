@@ -1943,8 +1943,7 @@ proto.rippleapi.transaction.ResponseGetTransaction.prototype.toObject = function
  */
 proto.rippleapi.transaction.ResponseGetTransaction.toObject = function(includeInstance, msg) {
   var f, obj = {
-    resultjsonstring: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    errormessage: jspb.Message.getFieldWithDefault(msg, 2, "")
+    resultjsonstring: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -1985,10 +1984,6 @@ proto.rippleapi.transaction.ResponseGetTransaction.deserializeBinaryFromReader =
       var value = /** @type {string} */ (reader.readString());
       msg.setResultjsonstring(value);
       break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setErrormessage(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -2025,13 +2020,6 @@ proto.rippleapi.transaction.ResponseGetTransaction.serializeBinaryToWriter = fun
       f
     );
   }
-  f = message.getErrormessage();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
 };
 
 
@@ -2050,24 +2038,6 @@ proto.rippleapi.transaction.ResponseGetTransaction.prototype.getResultjsonstring
  */
 proto.rippleapi.transaction.ResponseGetTransaction.prototype.setResultjsonstring = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string errorMessage = 2;
- * @return {string}
- */
-proto.rippleapi.transaction.ResponseGetTransaction.prototype.getErrormessage = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.rippleapi.transaction.ResponseGetTransaction} returns this
- */
-proto.rippleapi.transaction.ResponseGetTransaction.prototype.setErrormessage = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

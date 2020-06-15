@@ -34,10 +34,10 @@ export class RippleAccountAPIService implements grpc_pb.IRippleAccountAPIServer 
       callback(null, res);
     })
     .catch((error: rippledError) => {
-      console.log(error.data);
+      if (error) console.log(error.data); //sometimes, data is undefined 
       const statusError: ServiceError = {
         name: 'getAccountInfo error',
-        message: error.data.error_message,
+        message: error? error.data.error_message: 'something error',
         code: grpc.status.INVALID_ARGUMENT,
       };
       callback(statusError, null);

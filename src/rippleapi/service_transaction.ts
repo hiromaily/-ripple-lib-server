@@ -1,9 +1,10 @@
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
-import * as grpc from 'grpc';
+import grpc, {ServiceError} from 'grpc';
 import * as ripple from 'ripple-lib';
 import * as grpc_pb from '../proto/rippleapi/transaction_grpc_pb';
 import * as pb from '../proto/rippleapi/transaction_pb';
 import { enumTransactionTypeString } from './enum';
+import { rippledError } from './errors';
 
 // this document may be useful
 // https://qiita.com/aanrii/items/699b4cda0babb3f47a2f
@@ -68,32 +69,6 @@ export class RippleTransactionAPIService implements grpc_pb.IRippleTransactionAP
     console.log("Tentative result message:", resJSON.resultMessage);  
     
     return { resJSON: resJSON, earlistLedgerVersion: latestLedgerVersion + 1 };
-  }
-
-  // Ledger History
-  // https://xrpl.org/ledger-history.html
-  private async _getTransaction(call: grpc.ServerUnaryCall<pb.RequestGetTransaction>) : Promise<resGetTransaction> {
-    console.log("_getTransaction()");
-
-    let txJSON: string = "";
-    let errMessage: string = "";
-    try {
-      const txID = call.request.getTxid();
-      const earliestLedgerVersion = call.request.getMinledgerversion();
-
-      const tx = await this.rippleAPI.getTransaction(txID, {minLedgerVersion: earliestLedgerVersion});
-      console.log("Transaction result:", tx.outcome.result);
-      console.log("Balance changes:", JSON.stringify(tx.outcome.balanceChanges));
-      txJSON = JSON.stringify(tx);
-    } catch(error) {
-      console.log("Couldn't get transaction outcome:", error);
-      // MissingLedgerHistoryError: Server is missing ledger history in the specified range
-      // NotFoundError: Transaction has not been validated yet; try again later
-      // NotFoundError: Transaction not found
-      errMessage = error;
-    }
-    
-    return {txJSON: txJSON, errMessage: errMessage}
   }
 
   // prepareTransaction handler
@@ -194,20 +169,44 @@ export class RippleTransactionAPIService implements grpc_pb.IRippleTransactionAP
   }
 
   // getTransaction handler
+  // - Ledger History
+  // - https://xrpl.org/ledger-history.html
   getTransaction = (
     call: grpc.ServerUnaryCall<pb.RequestGetTransaction>,
     callback: grpc.sendUnaryData<pb.ResponseGetTransaction>,
   ) : void => {
     console.log("[getTransaction] is called");
 
-    // call API as async
-    this._getTransaction(call).then(resGetTx => {      
+    const txID = call.request.getTxid();
+    const earliestLedgerVersion = call.request.getMinledgerversion();
+
+
+    this.rippleAPI.getTransaction(txID, {minLedgerVersion: earliestLedgerVersion})
+    .then(tx => {
+      console.log("Transaction result:", tx.outcome.result);
+      console.log("Balance changes:", JSON.stringify(tx.outcome.balanceChanges));
+
       // response
       const res = new pb.ResponseGetTransaction();
-      res.setResultjsonstring(resGetTx.txJSON);
-      res.setErrormessage(resGetTx.errMessage);
+      res.setResultjsonstring(JSON.stringify(tx));
       callback(null, res);
+
     })
+    .catch((error: Error) => {
+      if (error) {
+        console.log(error.name);
+        console.log(error.message);
+      }   
+      // MissingLedgerHistoryError: Server is missing ledger history in the specified range
+      // NotFoundError: Transaction has not been validated yet; try again later
+      // NotFoundError: Transaction not found
+      const statusError: ServiceError = {
+        name: error.name? `getTransaction error ${error.name}`: 'getTransaction error',
+        message: error.message? error.message: 'something error',
+        code: grpc.status.INVALID_ARGUMENT,
+      };
+      callback(statusError, null);
+    });
   }
 
   // combineTransaction handler
