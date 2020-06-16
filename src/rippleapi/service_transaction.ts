@@ -179,7 +179,7 @@ export class RippleTransactionAPIService implements grpc_pb.IRippleTransactionAP
 
     const txID = call.request.getTxid();
     const earliestLedgerVersion = call.request.getMinledgerversion();
-
+    console.log(`earliestLedgerVersion: ${earliestLedgerVersion}`);
 
     this.rippleAPI.getTransaction(txID, {minLedgerVersion: earliestLedgerVersion})
     .then(tx => {
