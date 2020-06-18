@@ -46,15 +46,17 @@ export class RippleTransactionAPIService implements grpc_pb.IRippleTransactionAP
     console.log("_prepareTransaction()");
 
     const txType = call.request.getTxType();
-    // console.log(instructions);
-    // console.log(instructions?.getMaxledgerversionoffset());
+    const instructions = call.request.getInstructions();
+    console.log('maxLedgerVersionOffset: ', instructions?.getMaxledgerversionoffset());
 
     const preparedTx = await this.rippleAPI.prepareTransaction({
       "TransactionType": enumTransactionTypeString[txType],
       "Account": call.request.getSenderaccount(),
       "Amount": this.rippleAPI.xrpToDrops(call.request.getAmount().toString()),
       "Destination": call.request.getReceiveraccount(),      
-    }, {});
+    }, {
+      "maxLedgerVersionOffset": instructions?.getMaxledgerversionoffset()
+    });
     //console.log("preparedTx", preparedTx);
     return preparedTx.txJSON;
   }
