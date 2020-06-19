@@ -80,6 +80,15 @@ export class RippleTransactionAPIService implements grpc_pb.IRippleTransactionAP
   ) : void => {
     console.log("[prepareTransaction] is called");
 
+    if (!this.rippleAPI.isConnected()) {
+      const statusError: ServiceError = {
+        name: 'connection error',
+        message: 'connection error',
+        code: grpc.status.INVALID_ARGUMENT,
+      };
+      callback(statusError, null);
+    }
+
     // call API as async
     this._prepareTransaction(call).then(resJSON => {
       const txJSON = JSON.stringify(resJSON);
