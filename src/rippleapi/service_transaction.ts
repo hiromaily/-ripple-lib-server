@@ -31,6 +31,15 @@ interface resCombineTransaction {
   txJSON: string;
 }
 
+interface rippleInstructions {
+  sequence?: number;
+  fee?: string;
+  maxFee?: string;
+  maxLedgerVersion?: number;
+  maxLedgerVersionOffset?: number;
+  signersCount?: number;
+}
+
 export class RippleTransactionAPIService implements grpc_pb.IRippleTransactionAPIServer {
   private rippleAPI: ripple.RippleAPI;
 
@@ -48,16 +57,37 @@ export class RippleTransactionAPIService implements grpc_pb.IRippleTransactionAP
     const txType = call.request.getTxType();
     const instructions = call.request.getInstructions();
     console.log('maxLedgerVersionOffset: ', instructions?.getMaxledgerversionoffset());
+    console.log('sequence: ', instructions?.getSequence());
 
+    // create parameter instructions
+    let paramInst: rippleInstructions = {};
+    if (instructions?.getMaxledgerversionoffset()) {
+      paramInst.maxLedgerVersionOffset = instructions?.getMaxledgerversionoffset();
+    }
+    if (instructions?.getMaxledgerversion()) {
+      paramInst.maxLedgerVersion = instructions?.getMaxledgerversion();
+    }
+    if (instructions?.getSequence()) {
+      paramInst.sequence = instructions?.getSequence();
+    }
+    if (instructions?.getFee()) {
+      paramInst.fee = instructions?.getFee();
+    }
+    if (instructions?.getMaxfee()) {
+      paramInst.maxFee = instructions?.getMaxfee();
+    }
+    if (instructions?.getSignerscount()) {
+      paramInst.signersCount = instructions?.getSignerscount();
+    }
+    console.log('paramInst:', paramInst);
+
+    // prepareTransaction()
     const preparedTx = await this.rippleAPI.prepareTransaction({
       "TransactionType": enumTransactionTypeString[txType],
       "Account": call.request.getSenderaccount(),
       "Amount": this.rippleAPI.xrpToDrops(call.request.getAmount().toString()),
       "Destination": call.request.getReceiveraccount(),      
-    }, {
-      "maxLedgerVersionOffset": instructions?.getMaxledgerversionoffset()
-    });
-    //console.log("preparedTx", preparedTx);
+    }, paramInst);
     return preparedTx.txJSON;
   }
 
