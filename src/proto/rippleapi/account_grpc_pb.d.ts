@@ -12,9 +12,9 @@ interface IRippleAccountAPIService extends grpc.ServiceDefinition<grpc.UntypedSe
 }
 
 interface IRippleAccountAPIService_IGetAccountInfo extends grpc.MethodDefinition<proto_rippleapi_account_pb.RequestGetAccountInfo, proto_rippleapi_account_pb.ResponseGetAccountInfo> {
-    path: string; // "/rippleapi.account.RippleAccountAPI/GetAccountInfo"
-    requestStream: boolean; // false
-    responseStream: boolean; // false
+    path: "/rippleapi.account.RippleAccountAPI/GetAccountInfo";
+    requestStream: false;
+    responseStream: false;
     requestSerialize: grpc.serialize<proto_rippleapi_account_pb.RequestGetAccountInfo>;
     requestDeserialize: grpc.deserialize<proto_rippleapi_account_pb.RequestGetAccountInfo>;
     responseSerialize: grpc.serialize<proto_rippleapi_account_pb.ResponseGetAccountInfo>;

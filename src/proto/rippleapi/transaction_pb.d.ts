@@ -10,22 +10,16 @@ import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty
 export class Instructions extends jspb.Message { 
     getFee(): string;
     setFee(value: string): Instructions;
-
     getMaxfee(): string;
     setMaxfee(value: string): Instructions;
-
     getMaxledgerversion(): number;
     setMaxledgerversion(value: number): Instructions;
-
     getMaxledgerversionoffset(): number;
     setMaxledgerversionoffset(value: number): Instructions;
-
     getSequence(): number;
     setSequence(value: number): Instructions;
-
     getSignerscount(): number;
     setSignerscount(value: number): Instructions;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Instructions.AsObject;
@@ -51,22 +45,17 @@ export namespace Instructions {
 export class RequestPrepareTransaction extends jspb.Message { 
     getTxType(): EnumTransactionType;
     setTxType(value: EnumTransactionType): RequestPrepareTransaction;
-
     getSenderaccount(): string;
     setSenderaccount(value: string): RequestPrepareTransaction;
-
     getAmount(): number;
     setAmount(value: number): RequestPrepareTransaction;
-
     getReceiveraccount(): string;
     setReceiveraccount(value: string): RequestPrepareTransaction;
-
 
     hasInstructions(): boolean;
     clearInstructions(): void;
     getInstructions(): Instructions | undefined;
     setInstructions(value?: Instructions): RequestPrepareTransaction;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): RequestPrepareTransaction.AsObject;
@@ -92,12 +81,10 @@ export class ResponsePrepareTransaction extends jspb.Message {
     getTxjson(): string;
     setTxjson(value: string): ResponsePrepareTransaction;
 
-
     hasInstructions(): boolean;
     clearInstructions(): void;
     getInstructions(): Instructions | undefined;
     setInstructions(value?: Instructions): ResponsePrepareTransaction;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResponsePrepareTransaction.AsObject;
@@ -119,10 +106,8 @@ export namespace ResponsePrepareTransaction {
 export class RequestSignTransaction extends jspb.Message { 
     getTxjson(): string;
     setTxjson(value: string): RequestSignTransaction;
-
     getSecret(): string;
     setSecret(value: string): RequestSignTransaction;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): RequestSignTransaction.AsObject;
@@ -144,10 +129,8 @@ export namespace RequestSignTransaction {
 export class ResponseSignTransaction extends jspb.Message { 
     getTxid(): string;
     setTxid(value: string): ResponseSignTransaction;
-
     getTxblob(): string;
     setTxblob(value: string): ResponseSignTransaction;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResponseSignTransaction.AsObject;
@@ -170,7 +153,6 @@ export class RequestSubmitTransaction extends jspb.Message {
     getTxblob(): string;
     setTxblob(value: string): RequestSubmitTransaction;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): RequestSubmitTransaction.AsObject;
     static toObject(includeInstance: boolean, msg: RequestSubmitTransaction): RequestSubmitTransaction.AsObject;
@@ -190,10 +172,8 @@ export namespace RequestSubmitTransaction {
 export class ResponseSubmitTransaction extends jspb.Message { 
     getResultjsonstring(): string;
     setResultjsonstring(value: string): ResponseSubmitTransaction;
-
     getEarliestledgerversion(): number;
     setEarliestledgerversion(value: number): ResponseSubmitTransaction;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResponseSubmitTransaction.AsObject;
@@ -216,7 +196,6 @@ export class ResponseWaitValidation extends jspb.Message {
     getLedgerversion(): number;
     setLedgerversion(value: number): ResponseWaitValidation;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResponseWaitValidation.AsObject;
     static toObject(includeInstance: boolean, msg: ResponseWaitValidation): ResponseWaitValidation.AsObject;
@@ -236,10 +215,8 @@ export namespace ResponseWaitValidation {
 export class RequestGetTransaction extends jspb.Message { 
     getTxid(): string;
     setTxid(value: string): RequestGetTransaction;
-
     getMinledgerversion(): number;
     setMinledgerversion(value: number): RequestGetTransaction;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): RequestGetTransaction.AsObject;
@@ -261,7 +238,6 @@ export namespace RequestGetTransaction {
 export class ResponseGetTransaction extends jspb.Message { 
     getResultjsonstring(): string;
     setResultjsonstring(value: string): ResponseGetTransaction;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResponseGetTransaction.AsObject;
@@ -285,7 +261,6 @@ export class RequestCombineTransaction extends jspb.Message {
     setSignedtransactionsList(value: Array<string>): RequestCombineTransaction;
     addSignedtransactions(value: string, index?: number): string;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): RequestCombineTransaction.AsObject;
     static toObject(includeInstance: boolean, msg: RequestCombineTransaction): RequestCombineTransaction.AsObject;
@@ -305,10 +280,8 @@ export namespace RequestCombineTransaction {
 export class ResponseCombineTransaction extends jspb.Message { 
     getSignedtransaction(): string;
     setSignedtransaction(value: string): ResponseCombineTransaction;
-
     getTxid(): string;
     setTxid(value: string): ResponseCombineTransaction;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResponseCombineTransaction.AsObject;

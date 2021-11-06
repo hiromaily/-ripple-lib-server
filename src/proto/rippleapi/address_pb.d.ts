@@ -10,16 +10,12 @@ import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty
 export class ResponseGenerateAddress extends jspb.Message { 
     getXaddress(): string;
     setXaddress(value: string): ResponseGenerateAddress;
-
     getClassicaddress(): string;
     setClassicaddress(value: string): ResponseGenerateAddress;
-
     getAddress(): string;
     setAddress(value: string): ResponseGenerateAddress;
-
     getSecret(): string;
     setSecret(value: string): ResponseGenerateAddress;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResponseGenerateAddress.AsObject;
@@ -43,10 +39,8 @@ export namespace ResponseGenerateAddress {
 export class ResponseGenerateXAddress extends jspb.Message { 
     getXaddress(): string;
     setXaddress(value: string): ResponseGenerateXAddress;
-
     getSecret(): string;
     setSecret(value: string): ResponseGenerateXAddress;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResponseGenerateXAddress.AsObject;
@@ -69,7 +63,6 @@ export class RequestIsValidAddress extends jspb.Message {
     getAddress(): string;
     setAddress(value: string): RequestIsValidAddress;
 
-
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): RequestIsValidAddress.AsObject;
     static toObject(includeInstance: boolean, msg: RequestIsValidAddress): RequestIsValidAddress.AsObject;
@@ -89,7 +82,6 @@ export namespace RequestIsValidAddress {
 export class ResponseIsValidAddress extends jspb.Message { 
     getIsvalid(): boolean;
     setIsvalid(value: boolean): ResponseIsValidAddress;
-
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ResponseIsValidAddress.AsObject;

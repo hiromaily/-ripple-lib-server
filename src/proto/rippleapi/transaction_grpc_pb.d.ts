@@ -18,54 +18,54 @@ interface IRippleTransactionAPIService extends grpc.ServiceDefinition<grpc.Untyp
 }
 
 interface IRippleTransactionAPIService_IPrepareTransaction extends grpc.MethodDefinition<proto_rippleapi_transaction_pb.RequestPrepareTransaction, proto_rippleapi_transaction_pb.ResponsePrepareTransaction> {
-    path: string; // "/rippleapi.transaction.RippleTransactionAPI/PrepareTransaction"
-    requestStream: boolean; // false
-    responseStream: boolean; // false
+    path: "/rippleapi.transaction.RippleTransactionAPI/PrepareTransaction";
+    requestStream: false;
+    responseStream: false;
     requestSerialize: grpc.serialize<proto_rippleapi_transaction_pb.RequestPrepareTransaction>;
     requestDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.RequestPrepareTransaction>;
     responseSerialize: grpc.serialize<proto_rippleapi_transaction_pb.ResponsePrepareTransaction>;
     responseDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.ResponsePrepareTransaction>;
 }
 interface IRippleTransactionAPIService_ISignTransaction extends grpc.MethodDefinition<proto_rippleapi_transaction_pb.RequestSignTransaction, proto_rippleapi_transaction_pb.ResponseSignTransaction> {
-    path: string; // "/rippleapi.transaction.RippleTransactionAPI/SignTransaction"
-    requestStream: boolean; // false
-    responseStream: boolean; // false
+    path: "/rippleapi.transaction.RippleTransactionAPI/SignTransaction";
+    requestStream: false;
+    responseStream: false;
     requestSerialize: grpc.serialize<proto_rippleapi_transaction_pb.RequestSignTransaction>;
     requestDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.RequestSignTransaction>;
     responseSerialize: grpc.serialize<proto_rippleapi_transaction_pb.ResponseSignTransaction>;
     responseDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.ResponseSignTransaction>;
 }
 interface IRippleTransactionAPIService_ISubmitTransaction extends grpc.MethodDefinition<proto_rippleapi_transaction_pb.RequestSubmitTransaction, proto_rippleapi_transaction_pb.ResponseSubmitTransaction> {
-    path: string; // "/rippleapi.transaction.RippleTransactionAPI/SubmitTransaction"
-    requestStream: boolean; // false
-    responseStream: boolean; // false
+    path: "/rippleapi.transaction.RippleTransactionAPI/SubmitTransaction";
+    requestStream: false;
+    responseStream: false;
     requestSerialize: grpc.serialize<proto_rippleapi_transaction_pb.RequestSubmitTransaction>;
     requestDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.RequestSubmitTransaction>;
     responseSerialize: grpc.serialize<proto_rippleapi_transaction_pb.ResponseSubmitTransaction>;
     responseDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.ResponseSubmitTransaction>;
 }
 interface IRippleTransactionAPIService_IWaitValidation extends grpc.MethodDefinition<google_protobuf_empty_pb.Empty, proto_rippleapi_transaction_pb.ResponseWaitValidation> {
-    path: string; // "/rippleapi.transaction.RippleTransactionAPI/WaitValidation"
-    requestStream: boolean; // false
-    responseStream: boolean; // true
+    path: "/rippleapi.transaction.RippleTransactionAPI/WaitValidation";
+    requestStream: false;
+    responseStream: true;
     requestSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
     requestDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
     responseSerialize: grpc.serialize<proto_rippleapi_transaction_pb.ResponseWaitValidation>;
     responseDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.ResponseWaitValidation>;
 }
 interface IRippleTransactionAPIService_IGetTransaction extends grpc.MethodDefinition<proto_rippleapi_transaction_pb.RequestGetTransaction, proto_rippleapi_transaction_pb.ResponseGetTransaction> {
-    path: string; // "/rippleapi.transaction.RippleTransactionAPI/GetTransaction"
-    requestStream: boolean; // false
-    responseStream: boolean; // false
+    path: "/rippleapi.transaction.RippleTransactionAPI/GetTransaction";
+    requestStream: false;
+    responseStream: false;
     requestSerialize: grpc.serialize<proto_rippleapi_transaction_pb.RequestGetTransaction>;
     requestDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.RequestGetTransaction>;
     responseSerialize: grpc.serialize<proto_rippleapi_transaction_pb.ResponseGetTransaction>;
     responseDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.ResponseGetTransaction>;
 }
 interface IRippleTransactionAPIService_ICombineTransaction extends grpc.MethodDefinition<proto_rippleapi_transaction_pb.RequestCombineTransaction, proto_rippleapi_transaction_pb.ResponseCombineTransaction> {
-    path: string; // "/rippleapi.transaction.RippleTransactionAPI/CombineTransaction"
-    requestStream: boolean; // false
-    responseStream: boolean; // false
+    path: "/rippleapi.transaction.RippleTransactionAPI/CombineTransaction";
+    requestStream: false;
+    responseStream: false;
     requestSerialize: grpc.serialize<proto_rippleapi_transaction_pb.RequestCombineTransaction>;
     requestDeserialize: grpc.deserialize<proto_rippleapi_transaction_pb.RequestCombineTransaction>;
     responseSerialize: grpc.serialize<proto_rippleapi_transaction_pb.ResponseCombineTransaction>;

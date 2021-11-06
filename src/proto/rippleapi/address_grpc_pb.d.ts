@@ -15,27 +15,27 @@ interface IRippleAddressAPIService extends grpc.ServiceDefinition<grpc.UntypedSe
 }
 
 interface IRippleAddressAPIService_IGenerateAddress extends grpc.MethodDefinition<google_protobuf_empty_pb.Empty, proto_rippleapi_address_pb.ResponseGenerateAddress> {
-    path: string; // "/rippleapi.address.RippleAddressAPI/GenerateAddress"
-    requestStream: boolean; // false
-    responseStream: boolean; // false
+    path: "/rippleapi.address.RippleAddressAPI/GenerateAddress";
+    requestStream: false;
+    responseStream: false;
     requestSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
     requestDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
     responseSerialize: grpc.serialize<proto_rippleapi_address_pb.ResponseGenerateAddress>;
     responseDeserialize: grpc.deserialize<proto_rippleapi_address_pb.ResponseGenerateAddress>;
 }
 interface IRippleAddressAPIService_IGenerateXAddress extends grpc.MethodDefinition<google_protobuf_empty_pb.Empty, proto_rippleapi_address_pb.ResponseGenerateXAddress> {
-    path: string; // "/rippleapi.address.RippleAddressAPI/GenerateXAddress"
-    requestStream: boolean; // false
-    responseStream: boolean; // false
+    path: "/rippleapi.address.RippleAddressAPI/GenerateXAddress";
+    requestStream: false;
+    responseStream: false;
     requestSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
     requestDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
     responseSerialize: grpc.serialize<proto_rippleapi_address_pb.ResponseGenerateXAddress>;
     responseDeserialize: grpc.deserialize<proto_rippleapi_address_pb.ResponseGenerateXAddress>;
 }
 interface IRippleAddressAPIService_IIsValidAddress extends grpc.MethodDefinition<proto_rippleapi_address_pb.RequestIsValidAddress, proto_rippleapi_address_pb.ResponseIsValidAddress> {
-    path: string; // "/rippleapi.address.RippleAddressAPI/IsValidAddress"
-    requestStream: boolean; // false
-    responseStream: boolean; // false
+    path: "/rippleapi.address.RippleAddressAPI/IsValidAddress";
+    requestStream: false;
+    responseStream: false;
     requestSerialize: grpc.serialize<proto_rippleapi_address_pb.RequestIsValidAddress>;
     requestDeserialize: grpc.deserialize<proto_rippleapi_address_pb.RequestIsValidAddress>;
     responseSerialize: grpc.serialize<proto_rippleapi_address_pb.ResponseIsValidAddress>;
