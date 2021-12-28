@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "yarn ts-node src/server.ts",
     "dev:watch": "ts-node-dev --respawn src/server.ts",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx --fix",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },

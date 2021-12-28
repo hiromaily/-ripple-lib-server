@@ -13,7 +13,7 @@ type StartServerType = () => void;
 export const startServer: StartServerType = (): void => {
   // Note: if it run as offline mode, run without parameter. `new RippleAPI();`
   // https://xrpl.org/rippleapi-reference.html#offline-functionality
-  let rippleAPI = new ripple.RippleAPI({server: wsURL});
+  const rippleAPI = new ripple.RippleAPI({server: wsURL});
 
   // event handler
   rippleAPI.on('error', (errorCode, errorMessage) => {

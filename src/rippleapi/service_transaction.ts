@@ -4,7 +4,7 @@ import * as ripple from 'ripple-lib';
 import * as grpc_pb from '../proto/rippleapi/transaction_grpc_pb';
 import * as pb from '../proto/rippleapi/transaction_pb';
 import { enumTransactionTypeString } from './enum';
-import { rippledError } from './errors';
+//import { rippledError } from './errors';
 
 // this document may be useful
 // https://qiita.com/aanrii/items/699b4cda0babb3f47a2f
@@ -60,7 +60,7 @@ export class RippleTransactionAPIService implements grpc_pb.IRippleTransactionAP
     console.log('sequence: ', instructions?.getSequence());
 
     // create parameter instructions
-    let paramInst: rippleInstructions = {};
+    const paramInst: rippleInstructions = {};
     if (instructions?.getMaxledgerversionoffset()) {
       paramInst.maxLedgerVersionOffset = instructions?.getMaxledgerversionoffset();
     }
