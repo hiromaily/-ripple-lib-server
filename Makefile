@@ -44,6 +44,10 @@ gen-proto:
 .PHONY: update
 update: update-submodule gen-proto
 
+.PHONY: update-dependencies
+update-dependencies:
+	yarn yarn-upgrade-all
+
 .PHONY: run
 run:
 	yarn run dev
