@@ -10,8 +10,7 @@
 # 	yarn add -D @types/node nodemon ts-node ts-node-dev
 # 	yarn add -D prettier tslint-plugin-prettier tslint-config-prettier tslint-eslint-rules
 
-# 	yarn add grpc
-# 	yarn add google-protobuf
+# 	yarn add grpc google-protobuf
 # 	yarn add -D @types/google-protobuf grpc-tools grpc_tools_node_protoc_ts
 
 # 	yarn add dotenv
