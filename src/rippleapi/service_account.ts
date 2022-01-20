@@ -1,7 +1,7 @@
 import grpc, {sendUnaryData, ServerUnaryCall, ServiceError} from 'grpc';
 import * as ripple from 'ripple-lib';
-import * as grpc_pb from '../proto/rippleapi/account_grpc_pb';
-import * as pb from '../proto/rippleapi/account_pb';
+import * as grpc_pb from '../pb/account_grpc_pb';
+import * as pb from '../pb/account_pb';
 import { rippledError } from './errors';
 
 

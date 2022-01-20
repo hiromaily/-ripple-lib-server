@@ -1,5 +1,5 @@
 // package: rippleapi.account
-// file: proto/rippleapi/account.proto
+// file: account.proto
 
 /* tslint:disable */
 /* eslint-disable */

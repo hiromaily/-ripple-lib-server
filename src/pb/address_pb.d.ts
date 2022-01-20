@@ -1,5 +1,5 @@
 // package: rippleapi.address
-// file: proto/rippleapi/address.proto
+// file: address.proto
 
 /* tslint:disable */
 /* eslint-disable */

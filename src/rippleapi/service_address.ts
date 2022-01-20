@@ -1,8 +1,8 @@
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import * as grpc from 'grpc';
 import * as ripple from 'ripple-lib';
-import * as grpc_pb from '../proto/rippleapi/address_grpc_pb';
-import * as pb from '../proto/rippleapi/address_pb';
+import * as grpc_pb from '../pb/address_grpc_pb';
+import * as pb from '../pb/address_pb';
 
 
 export class RippleAddressAPIService implements grpc_pb.IRippleAddressAPIServer {

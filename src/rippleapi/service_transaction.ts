@@ -1,8 +1,8 @@
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import grpc, {ServiceError} from 'grpc';
 import * as ripple from 'ripple-lib';
-import * as grpc_pb from '../proto/rippleapi/transaction_grpc_pb';
-import * as pb from '../proto/rippleapi/transaction_pb';
+import * as grpc_pb from '../pb/transaction_grpc_pb';
+import * as pb from '../pb/transaction_pb';
 import { enumTransactionTypeString } from './enum';
 //import { rippledError } from './errors';
 

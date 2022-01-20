@@ -1,4 +1,4 @@
-// source: proto/rippleapi/account.proto
+// source: account.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -13,7 +13,13 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global = Function('return this')();
+var global = (function() {
+  if (this) { return this; }
+  if (typeof window !== 'undefined') { return window; }
+  if (typeof global !== 'undefined') { return global; }
+  if (typeof self !== 'undefined') { return self; }
+  return Function('return this')();
+}.call(null));
 
 goog.exportSymbol('proto.rippleapi.account.RequestGetAccountInfo', null, global);
 goog.exportSymbol('proto.rippleapi.account.ResponseGetAccountInfo', null, global);
